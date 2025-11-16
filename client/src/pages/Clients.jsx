@@ -7,7 +7,7 @@ import { Label } from '../components/ui/label';
 import { Dialog } from '../components/ui/dialog';
 import { 
   Plus, Search, Mail, Phone, Building, MapPin, 
-  Users, TrendingUp, Edit, Trash2, Eye 
+  Users, TrendingUp, Edit, Trash2, Eye, FileText, X
 } from 'lucide-react';
 import api from '../api/client';
 
@@ -18,6 +18,9 @@ export default function Clients() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
+  const [showItinerariesModal, setShowItinerariesModal] = useState(false);
+  const [clientItineraries, setClientItineraries] = useState([]);
+  const [loadingItineraries, setLoadingItineraries] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
     active: 0,
@@ -60,10 +63,27 @@ export default function Clients() {
 
   const fetchStats = async () => {
     try {
+      console.log('[CLIENTS] Fetching stats...');
       const response = await api.get('/clients/stats');
-      setStats(response.data.stats);
+      console.log('[CLIENTS] Stats response:', JSON.stringify(response.data, null, 2));
+      
+      // Handle both nested and flat stats structure
+      const statsData = response.data.stats;
+      if (statsData.clients) {
+        // Nested structure from backend
+        setStats({
+          total: statsData.clients.total || 0,
+          active: statsData.clients.active || 0,
+          inactive: (statsData.clients.total || 0) - (statsData.clients.active || 0),
+          new_this_month: statsData.clients.new_this_month || 0
+        });
+      } else {
+        // Flat structure
+        setStats(statsData);
+      }
+      console.log('[CLIENTS] Stats set successfully');
     } catch (error) {
-      console.error('Error fetching stats:', error);
+      console.error('[CLIENTS] Error fetching stats:', error);
     }
   };
 
@@ -158,6 +178,25 @@ export default function Clients() {
     setSelectedClient(null);
     resetForm();
     setShowAddDialog(true);
+  };
+
+  const handleViewItineraries = async (client) => {
+    console.log('[CLIENTS] Viewing itineraries for client:', client.id, client.name);
+    setSelectedClient(client);
+    setShowItinerariesModal(true);
+    setLoadingItineraries(true);
+    try {
+      console.log('[CLIENTS] Fetching itineraries with client_id:', client.id);
+      const response = await api.get(`/itineraries?client_id=${client.id}`);
+      console.log('[CLIENTS] Received itineraries:', response.data.itineraries?.length || 0);
+      console.log('[CLIENTS] Itineraries data:', JSON.stringify(response.data.itineraries, null, 2));
+      setClientItineraries(response.data.itineraries || []);
+    } catch (error) {
+      console.error('[CLIENTS] Error fetching client itineraries:', error.message, error);
+      setClientItineraries([]);
+    } finally {
+      setLoadingItineraries(false);
+    }
   };
 
   return (
@@ -313,6 +352,14 @@ export default function Clients() {
                         <Button
                           variant="ghost"
                           size="sm"
+                          onClick={() => handleViewItineraries(client)}
+                          title="View Itineraries"
+                        >
+                          <FileText className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
                           onClick={() => handleEdit(client)}
                         >
                           <Edit className="w-4 h-4" />
@@ -434,6 +481,84 @@ export default function Clients() {
                   </Button>
                 </div>
               </form>
+            </Card>
+          </div>
+        </Dialog>
+      )}
+
+      {/* View Itineraries Modal */}
+      {showItinerariesModal && selectedClient && (
+        <Dialog open={showItinerariesModal} onOpenChange={setShowItinerariesModal}>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <Card className="w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold">Itineraries for {selectedClient.name}</h2>
+                  <p className="text-gray-600 text-sm mt-1">{selectedClient.email}</p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowItinerariesModal(false)}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+
+              {loadingItineraries ? (
+                <div className="text-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                  <p className="mt-4 text-gray-600">Loading itineraries...</p>
+                </div>
+              ) : clientItineraries.length === 0 ? (
+                <div className="text-center py-12">
+                  <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">No itineraries yet</h3>
+                  <p className="text-gray-600">Create an itinerary and link it to this client</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {clientItineraries.map((itinerary) => (
+                    <div
+                      key={itinerary.id}
+                      className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-gray-900">{itinerary.title || itinerary.destination}</h3>
+                          <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                            {itinerary.destination && (
+                              <div className="flex items-center gap-1">
+                                <MapPin className="w-4 h-4" />
+                                {itinerary.destination}
+                              </div>
+                            )}
+                            {itinerary.duration && (
+                              <div className="flex items-center gap-1">
+                                <FileText className="w-4 h-4" />
+                                {itinerary.duration} days
+                              </div>
+                            )}
+                            {itinerary.travelers && (
+                              <div className="flex items-center gap-1">
+                                <Users className="w-4 h-4" />
+                                {itinerary.travelers} travelers
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          itinerary.status === 'draft' ? 'bg-gray-100 text-gray-800' :
+                          itinerary.status === 'confirmed' ? 'bg-green-100 text-green-800' :
+                          'bg-blue-100 text-blue-800'
+                        }`}>
+                          {itinerary.status || 'draft'}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </Card>
           </div>
         </Dialog>

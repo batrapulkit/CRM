@@ -4,8 +4,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import TestConnection from './pages/TestConnection';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import Clients from './pages/Clients';
-import Itineraries from './pages/Itineraries';
+import ClientsAndItineraries from './pages/ClientsAndItineraries';
 import CRM from './pages/CRM';
 import Layout from './components/Layout';
 
@@ -53,8 +52,8 @@ function AppRoutes() {
             <Layout>
               <Routes>
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/clients" element={<Clients />} />
-                <Route path="/itineraries" element={<Itineraries />} />
+                <Route path="/clients" element={<ClientsAndItineraries />} />
+                <Route path="/itineraries" element={<ClientsAndItineraries />} />
                 <Route path="/crm" element={<CRM />} />
                 <Route path="/" element={<Navigate to="/dashboard" />} />
                 <Route path="/test" element={<TestConnection />} />

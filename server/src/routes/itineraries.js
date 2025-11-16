@@ -2,6 +2,7 @@
 import express from "express";
 import {
   generateItinerary,
+  createItinerary,
   getItineraries,
   getItinerary,
   updateItinerary,
@@ -12,6 +13,7 @@ import { authenticate } from "../middleware/auth.js";
 const router = express.Router();
 router.use(authenticate);
 
+router.post("/", createItinerary);
 router.post("/generate", generateItinerary);
 router.get("/", getItineraries);
 router.get("/:id", getItinerary);

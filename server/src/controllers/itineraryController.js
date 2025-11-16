@@ -155,12 +155,102 @@ Generate ${daysNum} days.
 };
 
 /**
+ * Create manual itinerary
+ */
+export const createItinerary = async (req, res) => {
+  try {
+    console.log('[ITINERARY] Creating manual itinerary with data:', JSON.stringify(req.body, null, 2));
+    
+    const {
+      destination,
+      starting_point,
+      start_date,
+      end_date,
+      travelers,
+      trip_type,
+      budget,
+      client_id,
+      status
+    } = req.body;
+
+    console.log('[ITINERARY] Parsed fields - destination:', destination, 'starting_point:', starting_point, 'client_id:', client_id, 'type:', typeof client_id);
+
+    if (!destination || !starting_point) {
+      console.warn('[ITINERARY] Validation failed - missing destination or starting_point');
+      return res.status(400).json({ error: 'Destination and starting point are required' });
+    }
+
+    // Validate user context
+    if (!req.user || !req.user.id || !req.user.agency_id) {
+      console.error('[ITINERARY] Missing user context:', { userId: req.user?.id, agencyId: req.user?.agency_id });
+      return res.status(401).json({ error: 'User authentication required' });
+    }
+
+    // Convert empty string client_id to null for proper database linking
+    const finalClientId = client_id && typeof client_id === 'string' && client_id.trim() !== '' ? client_id : null;
+    console.log('[ITINERARY] Final client_id after conversion:', finalClientId);
+
+    const record = {
+      destination: destination.trim(),
+      starting_point: starting_point.trim(),
+      start_date: start_date || null,
+      end_date: end_date || null,
+      travelers: parseInt(travelers) || 1,
+      trip_type: trip_type || 'general',
+      budget: budget ? parseFloat(budget) : null,
+      client_id: finalClientId,
+      status: status || 'draft',
+      created_by: req.user.id,
+      agency_id: req.user.agency_id,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    console.log('[ITINERARY] Inserting record:', JSON.stringify(record, null, 2));
+
+    const { data, error } = await supabase
+      .from('itineraries')
+      .insert(record)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('[ITINERARY] Database error:', JSON.stringify(error, null, 2));
+      console.error('[ITINERARY] Error code:', error.code);
+      console.error('[ITINERARY] Error message:', error.message);
+      throw new Error(`Database error: ${error.message} (${error.code})`);
+    }
+
+    if (!data) {
+      console.error('[ITINERARY] No data returned from insert');
+      throw new Error('No data returned from database insert');
+    }
+
+    console.log('[ITINERARY] Successfully created itinerary:', data.id, 'for client:', finalClientId);
+    console.log('[ITINERARY] Full itinerary data:', JSON.stringify(data, null, 2));
+    return res.status(201).json({ success: true, itinerary: data });
+  } catch (err) {
+    console.error('[ITINERARY] Error creating itinerary:', err.message);
+    console.error('[ITINERARY] Error stack:', err.stack);
+    return res.status(500).json({ 
+      error: 'Failed to create itinerary', 
+      details: err.message,
+      code: err.code
+    });
+  }
+};
+
+/**
  * Get all itineraries (embedded client, created_by user profile)
- * Supports ?limit=5
+ * Supports ?limit=5 and ?client_id=<id>
  */
 export const getItineraries = async (req, res) => {
   try {
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : null;
+    const clientId = req.query.client_id;
+    const agencyId = req.user.agency_id;
+
+    console.log('[ITINERARY] Fetching itineraries - agency_id:', agencyId, 'client_id:', clientId, 'limit:', limit);
 
     let query = supabase
       .from('itineraries')
@@ -178,17 +268,33 @@ export const getItineraries = async (req, res) => {
           email
         )
       `)
-      .eq('agency_id', req.user.agency_id)
-      .order('created_at', { ascending: false });
+      .eq('agency_id', agencyId);
+
+    // Filter by client_id if provided
+    if (clientId) {
+      console.log('[ITINERARY] Filtering by client_id:', clientId);
+      query = query.eq('client_id', clientId);
+    }
+
+    query = query.order('created_at', { ascending: false });
 
     if (limit) query = query.limit(limit);
 
     const { data, error } = await query;
-    if (error) throw error;
+    
+    if (error) {
+      console.error('[ITINERARY] Database error fetching itineraries:', error);
+      throw error;
+    }
+
+    console.log('[ITINERARY] Successfully fetched', data?.length || 0, 'itineraries');
+    if (data && data.length > 0) {
+      console.log('[ITINERARY] Sample itinerary:', JSON.stringify(data[0], null, 2));
+    }
 
     return res.json({ success: true, itineraries: data || [] });
   } catch (err) {
-    console.error('Error fetching itineraries:', err);
+    console.error('[ITINERARY] Error fetching itineraries:', err.message, err.stack);
     return res.status(500).json({ error: 'Failed to fetch itineraries', details: err.message });
   }
 };

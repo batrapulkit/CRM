@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "@/api/client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search, Filter } from "lucide-react";
@@ -14,9 +14,10 @@ export default function Itineraries() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showAIBuilder, setShowAIBuilder] = useState(false);
+  const queryClient = useQueryClient();
 
   // FIXED: Use your backend API endpoint
-  const { data = [], isLoading } = useQuery({
+  const { data = [], isLoading, refetch } = useQuery({
     queryKey: ['itineraries'],
     queryFn: async () => {
       const res = await api.get('/itineraries');
@@ -24,6 +25,16 @@ export default function Itineraries() {
     },
     initialData: [],
   });
+
+  const handleDialogClose = () => {
+    setShowCreateDialog(false);
+    refetch();
+  };
+
+  const handleAIBuilderClose = () => {
+    setShowAIBuilder(false);
+    refetch();
+  };
 
   // Filtering stays the same
   const filteredItineraries = data.filter(itin =>

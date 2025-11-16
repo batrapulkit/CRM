@@ -36,23 +36,23 @@ export default function Dashboard() {
       ]);
 
       // Correct mapping based on backend response
-      setRecentClients(clientsRes.data.clients?.slice(0, 5) || []);
-      setRecentItineraries(itinerariesRes.data.itineraries?.slice(0, 5) || []);
+      const allClients = clientsRes.data.clients || [];
+      const allItineraries = itinerariesRes.data.itineraries || [];
+      const statsData = clientStatsRes.data.stats || {};
+
+      setRecentClients(allClients.slice(0, 5));
+      setRecentItineraries(allItineraries.slice(0, 5));
 
       setStats({
         clients: {
-          total: clientStatsRes.data.total_clients || 0,
-          active: clientsRes.data.clients?.length || 0,
-          new_this_month: 0
+          total: statsData.clients?.total || allClients.length || 0,
+          active: statsData.clients?.active || 0,
+          new_this_month: statsData.clients?.new_this_month || 0
         },
         itineraries: {
-          total: itinerariesRes.data.itineraries?.length || 0,
-          draft:
-            itinerariesRes.data.itineraries?.filter(i => i.status === 'draft')
-              .length || 0,
-          confirmed:
-            itinerariesRes.data.itineraries?.filter(i => i.status === 'confirmed')
-              .length || 0
+          total: allItineraries.length || 0,
+          draft: allItineraries.filter(i => i.status === 'draft').length || 0,
+          confirmed: allItineraries.filter(i => i.status === 'confirmed').length || 0
         },
         revenue: { total: 0, this_month: 0 },
         bookings: { total: 0, pending: 0 }
