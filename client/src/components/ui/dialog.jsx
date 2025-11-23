@@ -57,3 +57,7 @@ export function DialogTrigger({ asChild = false, children, onClick }) {
     </button>
   );
 }
+
+export function DialogFooter({ children }) {
+  return <div className="mt-6 flex justify-end gap-3">{children}</div>;
+}

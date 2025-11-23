@@ -1,38 +1,76 @@
-import React, { useState } from "react";
+// Settings page with organization branding and notification preferences
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Settings as SettingsIcon, 
-  Building2, 
-  Bell, 
-  Shield, 
-  Palette
-} from "lucide-react";
+import { Settings as SettingsIcon, Building2, Bell, Shield, Palette } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import api from "@/api/client";
+import { useBranding } from "@/contexts/BrandingContext";
 
 export default function Settings() {
+  const { updateBranding } = useBranding();
+
+  // Notification toggles
   const [notifications, setNotifications] = useState({
     email: true,
     usage: true,
     billing: true,
-    updates: false
+    updates: false,
   });
 
-  const handleSave = () => {
-    toast.success('Settings saved successfully');
+  // Organization branding settings
+  const [settings, setSettings] = useState({
+    company_name: "",
+    domain: "",
+    industry: "",
+    country: "",
+    contact_email: "",
+    logo_url: "",
+  });
+
+  // Load settings on mount
+  useEffect(() => {
+    api
+      .get("/settings")
+      .then((res) => {
+        const data = res.data?.settings || {};
+        setSettings({
+          company_name: data.company_name || "",
+          domain: data.domain || "",
+          industry: data.industry || "",
+          country: data.country || "",
+          contact_email: data.contact_email || "",
+          logo_url: data.logo_url || "",
+        });
+      })
+      .catch(() => toast.error("Failed to load settings"));
+  }, []);
+
+  const handleSave = async () => {
+    try {
+      await api.put("/settings", { organization: settings });
+
+      // Update branding context
+      updateBranding({
+        company_name: settings.company_name,
+        logo_url: settings.logo_url
+      });
+
+      toast.success("Settings saved successfully");
+    } catch (e) {
+      console.error(e);
+      toast.error("Failed to save settings");
+    }
   };
 
   return (
     <div className="p-6 lg:p-8 space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <div className="mb-8">
           <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2 flex items-center gap-3">
             <div className="p-2 bg-gradient-to-br from-slate-600 to-slate-800 rounded-xl">
@@ -40,32 +78,27 @@ export default function Settings() {
             </div>
             Settings
           </h1>
-          <p className="text-slate-600">
-            Manage your organization preferences and configurations
-          </p>
+          <p className="text-slate-600">Manage your organization preferences and configurations</p>
         </div>
       </motion.div>
 
       <Tabs defaultValue="organization" className="space-y-6">
         <TabsList className="bg-white border border-slate-200 p-1">
           <TabsTrigger value="organization">
-            <Building2 className="w-4 h-4 mr-2" />
-            Organization
+            <Building2 className="w-4 h-4 mr-2" /> Organization
           </TabsTrigger>
           <TabsTrigger value="notifications">
-            <Bell className="w-4 h-4 mr-2" />
-            Notifications
+            <Bell className="w-4 h-4 mr-2" /> Notifications
           </TabsTrigger>
           <TabsTrigger value="security">
-            <Shield className="w-4 h-4 mr-2" />
-            Security
+            <Shield className="w-4 h-4 mr-2" /> Security
           </TabsTrigger>
           <TabsTrigger value="appearance">
-            <Palette className="w-4 h-4 mr-2" />
-            Appearance
+            <Palette className="w-4 h-4 mr-2" /> Appearance
           </TabsTrigger>
         </TabsList>
 
+        {/* Organization Tab */}
         <TabsContent value="organization">
           <Card className="border-slate-200/60 shadow-lg">
             <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
@@ -76,23 +109,56 @@ export default function Settings() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <Label htmlFor="company_name">Company Name</Label>
-                  <Input id="company_name" defaultValue="Acme Corporation" />
+                  <Input
+                    id="company_name"
+                    value={settings.company_name}
+                    onChange={(e) => setSettings({ ...settings, company_name: e.target.value })}
+                  />
                 </div>
                 <div>
                   <Label htmlFor="domain">Domain</Label>
-                  <Input id="domain" defaultValue="acme.com" />
+                  <Input
+                    id="domain"
+                    value={settings.domain}
+                    onChange={(e) => setSettings({ ...settings, domain: e.target.value })}
+                  />
                 </div>
                 <div>
                   <Label htmlFor="industry">Industry</Label>
-                  <Input id="industry" defaultValue="Travel Agency" />
+                  <Input
+                    id="industry"
+                    value={settings.industry}
+                    onChange={(e) => setSettings({ ...settings, industry: e.target.value })}
+                  />
                 </div>
                 <div>
                   <Label htmlFor="country">Country</Label>
-                  <Input id="country" defaultValue="United States" />
+                  <Input
+                    id="country"
+                    value={settings.country}
+                    onChange={(e) => setSettings({ ...settings, country: e.target.value })}
+                  />
                 </div>
                 <div className="md:col-span-2">
                   <Label htmlFor="contact_email">Contact Email</Label>
-                  <Input id="contact_email" type="email" defaultValue="contact@acme.com" />
+                  <Input
+                    id="contact_email"
+                    type="email"
+                    value={settings.contact_email}
+                    onChange={(e) => setSettings({ ...settings, contact_email: e.target.value })}
+                  />
+                </div>
+                <div className="md:col-span-2 flex items-center space-x-4">
+                  <Label htmlFor="logo_url" className="flex-shrink-0">Logo URL</Label>
+                  <Input
+                    id="logo_url"
+                    placeholder="https://example.com/logo.png"
+                    value={settings.logo_url}
+                    onChange={(e) => setSettings({ ...settings, logo_url: e.target.value })}
+                  />
+                  {settings.logo_url && (
+                    <img src={settings.logo_url} alt="Logo preview" className="h-10 w-auto rounded border" />
+                  )}
                 </div>
               </div>
               <Button onClick={handleSave} className="bg-gradient-to-r from-indigo-600 to-cyan-500">
@@ -102,6 +168,7 @@ export default function Settings() {
           </Card>
         </TabsContent>
 
+        {/* Notifications Tab */}
         <TabsContent value="notifications">
           <Card className="border-slate-200/60 shadow-lg">
             <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
@@ -158,6 +225,7 @@ export default function Settings() {
           </Card>
         </TabsContent>
 
+        {/* Security Tab */}
         <TabsContent value="security">
           <Card className="border-slate-200/60 shadow-lg">
             <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
@@ -192,6 +260,7 @@ export default function Settings() {
           </Card>
         </TabsContent>
 
+        {/* Appearance Tab */}
         <TabsContent value="appearance">
           <Card className="border-slate-200/60 shadow-lg">
             <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">

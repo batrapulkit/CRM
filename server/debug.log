@@ -35,14 +35,14 @@ Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguag
     at async detectIntent (file:///E:/B2B%2044/triponic-b2b/server/src/controllers/aiController.js:38:18)
     at async chatWithAI (file:///E:/B2B%2044/triponic-b2b/server/src/controllers/aiController.js:97:24)
 [2025-11-22T01:40:14.010Z] Detecting intent for: create a plan for india for Pulkit for 2 days and create an invoice also
-[2025-11-22T01:40:14.180Z] AI controller error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-exp
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-exp
-Please retry in 41.576960799s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"41s"}]
-Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-exp
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-exp
-Please retry in 41.576960799s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"41s"}]
+[2025-11-22T01:40:14.180Z] AI controller error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 41.576960799s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"41s"}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 41.576960799s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"41s"}]
     at handleResponseNotOk (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:432:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
     at async makeRequest (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:401:9)
@@ -173,14 +173,14 @@ Please retry in 41.576960799s. [{"@type":"type.googleapis.com/google.rpc.Help","
 [2025-11-22T18:43:41.911Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
 [2025-11-22T18:43:41.994Z] [CLIENTS] [GetClients] Success. Found 1 records.
 [2025-11-22T18:44:07.389Z] Detecting intent for: Hello
-[2025-11-22T18:44:07.591Z] AI controller error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-exp
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-exp
-Please retry in 48.484312246s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"48s"}]
-Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-exp
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-exp
-Please retry in 48.484312246s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"48s"}]
+[2025-11-22T18:44:07.591Z] AI controller error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 48.484312246s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"48s"}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 48.484312246s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"48s"}]
     at handleResponseNotOk (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:432:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
     at async makeRequest (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:401:9)
@@ -283,14 +283,14 @@ Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguag
 [2025-11-22T19:41:18.389Z] [SUPABASE_CONFIG] Key Role: service_role
 [2025-11-22T19:41:18.390Z] [SUPABASE_CONFIG] Key ISS: supabase
 [2025-11-22T19:52:08.716Z] Detecting intent for: Hello
-[2025-11-22T19:52:08.883Z] AI controller error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-exp
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-exp
-Please retry in 47.156751313s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"47s"}]
-Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-exp
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-exp
-Please retry in 47.156751313s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"47s"}]
+[2025-11-22T19:52:08.883Z] AI controller error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 47.156751313s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"47s"}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 47.156751313s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"47s"}]
     at handleResponseNotOk (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:432:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
     at async makeRequest (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:401:9)
@@ -378,14 +378,14 @@ Please retry in 47.156751313s. [{"@type":"type.googleapis.com/google.rpc.Help","
 [2025-11-22T19:55:15.963Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
 [2025-11-22T19:55:16.032Z] [CLIENTS] [GetClients] Success. Found 4 records.
 [2025-11-22T19:55:47.450Z] Detecting intent for: hello
-[2025-11-22T19:55:47.598Z] AI controller error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-exp
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-exp
-Please retry in 8.43967575s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"8s"}]
-Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash-exp
-* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash-exp
-Please retry in 8.43967575s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.0-flash-exp"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"8s"}]
+[2025-11-22T19:55:47.598Z] AI controller error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 8.43967575s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"8s"}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 8.43967575s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"8s"}]
     at handleResponseNotOk (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:432:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
     at async makeRequest (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:401:9)
@@ -553,3 +553,253 @@ Please retry in 8.43967575s. [{"@type":"type.googleapis.com/google.rpc.Help","li
 [2025-11-22T20:58:55.996Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
 [2025-11-22T20:58:56.081Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
 [2025-11-22T20:58:56.147Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T21:16:21.156Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-22T21:16:21.157Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-22T21:17:31.762Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:17:31.859Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:17:31.937Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T21:17:32.090Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:17:32.152Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:17:32.206Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T21:17:32.232Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:32.318Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:32.388Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:32.455Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:32.529Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:32.582Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:32.636Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:32.690Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:32.747Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:32.810Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:32.866Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:32.931Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:32.994Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.071Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.129Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:33.188Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.269Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.324Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:33.386Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.449Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.507Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:33.582Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.645Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.703Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:33.761Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.824Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:33.889Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:33.951Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.009Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.076Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:34.164Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.221Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.274Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:34.345Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.401Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.453Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:34.525Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.578Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.639Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:34.715Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.780Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.833Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:34.886Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:34.937Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.005Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:35.103Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.178Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.238Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:35.298Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.359Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.444Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:35.502Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.546Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.607Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:35.669Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.723Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.779Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:35.836Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.891Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:35.943Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:36.010Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.065Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.120Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:36.171Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.406Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.463Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:36.523Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.580Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.628Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:36.697Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.756Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.811Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:36.871Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.927Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:36.981Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:37.042Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.102Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.162Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:37.224Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.278Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.327Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:37.387Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.446Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.512Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:37.575Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.634Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.685Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:17:37.747Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.806Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-22T21:17:37.861Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-22T21:19:49.464Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:19:49.523Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:19:49.599Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T21:19:49.658Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:19:49.710Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:19:49.769Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T21:20:11.397Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:20:11.451Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:20:11.556Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T21:20:11.615Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:20:11.676Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:20:11.733Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T21:23:23.899Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:23:24.046Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:23:24.223Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T21:23:24.341Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:23:24.443Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T21:23:24.549Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:14:54.238Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-22T23:14:54.239Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-22T23:15:07.471Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:15:07.591Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:15:07.741Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:15:07.943Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:15:08.099Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:15:08.164Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:15:27.278Z] Detecting intent for: Plan for paris for 2 days for Parth
+[2025-11-22T23:15:27.609Z] AI controller error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 28.377955105s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"28s"}]
+Error: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent: [429 Too Many Requests] You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.5-flash-lite
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.5-flash-lite
+Please retry in 28.377955105s. [{"@type":"type.googleapis.com/google.rpc.Help","links":[{"description":"Learn more about Gemini API quotas","url":"https://ai.google.dev/gemini-api/docs/rate-limits"}]},{"@type":"type.googleapis.com/google.rpc.QuotaFailure","violations":[{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_requests","quotaId":"GenerateRequestsPerMinutePerProjectPerModel-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}},{"quotaMetric":"generativelanguage.googleapis.com/generate_content_free_tier_input_token_count","quotaId":"GenerateContentInputTokensPerModelPerMinute-FreeTier","quotaDimensions":{"location":"global","model":"gemini-2.5-flash-lite"}}]},{"@type":"type.googleapis.com/google.rpc.RetryInfo","retryDelay":"28s"}]
+    at handleResponseNotOk (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:432:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async makeRequest (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:401:9)
+    at async generateContent (file:///E:/B2B%2044/triponic-b2b/server/node_modules/@google/generative-ai/dist/index.mjs:865:22)
+    at async detectIntent (file:///E:/B2B%2044/triponic-b2b/server/src/controllers/aiController.js:38:18)
+    at async chatWithAI (file:///E:/B2B%2044/triponic-b2b/server/src/controllers/aiController.js:97:24)
+[2025-11-22T23:16:39.826Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-22T23:16:39.827Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-22T23:18:07.916Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-22T23:18:07.917Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-22T23:33:18.106Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-22T23:33:18.107Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-22T23:33:42.881Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-22T23:33:42.882Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-22T23:33:49.465Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:33:49.580Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:33:49.751Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:33:49.850Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:33:49.926Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:33:50.000Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:34:08.424Z] Detecting intent for: create a plan to paris for 2 days for parth
+[2025-11-22T23:34:30.038Z] Detecting intent for: where is it
+[2025-11-22T23:34:33.934Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:34:34.008Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:34:34.096Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:34:34.610Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:34:34.681Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:34:34.744Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:34:55.769Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:34:55.854Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:34:55.942Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:34:56.006Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:34:56.083Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:34:56.146Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:35:22.649Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-22T23:35:22.650Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-22T23:41:42.505Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:41:42.584Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:41:42.662Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:41:42.733Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:41:42.807Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:41:42.916Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:41:50.284Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:41:50.352Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:41:50.438Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:41:50.502Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:41:50.567Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:41:50.633Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:42:48.393Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:42:48.461Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:42:48.528Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:42:48.704Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:42:48.878Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:42:48.942Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:43:49.068Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:43:49.126Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:43:49.212Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:44:26.833Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:44:26.960Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:44:27.034Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:44:27.133Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:44:27.279Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:44:27.378Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:44:44.645Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:44:44.721Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:44:44.825Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:44:44.903Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:44:44.963Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:44:45.037Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:50:32.014Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:50:32.084Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:50:32.149Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:50:32.323Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:50:32.416Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:50:32.478Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:53:41.373Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-22T23:53:41.373Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-22T23:57:41.609Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-22T23:57:41.609Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-22T23:59:47.331Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:59:47.419Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:59:47.483Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-22T23:59:47.560Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:59:47.628Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-22T23:59:47.692Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-23T00:00:04.168Z] Detecting intent for: Create a 3-day trip to Rome for Parth
+[2025-11-23T00:00:55.111Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:00:55.315Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:00:55.536Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-23T00:00:55.728Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:00:55.928Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:00:56.038Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-23T00:00:58.345Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:00:58.419Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:00:58.505Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-23T00:03:41.499Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-23T00:03:41.500Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-23T00:05:02.156Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:05:02.261Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:05:02.341Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-23T00:05:53.112Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:05:53.175Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:05:53.268Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-23T00:06:11.646Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:06:11.725Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:06:11.837Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-23T00:06:11.906Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:06:11.974Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:06:12.047Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-23T00:12:16.472Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-23T00:12:16.473Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-23T00:13:08.290Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:13:08.495Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:13:08.565Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-23T00:17:08.831Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:17:08.934Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-23T00:17:08.997Z] [CLIENTS] [GetClients] Success. Found 3 records.

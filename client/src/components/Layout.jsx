@@ -35,6 +35,8 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import AgencyBranding from "./agency/AgencyBranding.jsx";
 import AIAssistant from "./ai/AIAssistant.jsx";
+import { useBranding } from "@/contexts/BrandingContext";
+import TriponicWatermark from "./TriponicWatermark.jsx";
 
 const navigationItems = [
   { title: "Dashboard", url: createPageUrl("Dashboard"), icon: LayoutDashboard },
@@ -53,6 +55,7 @@ export default function Layout({ children }) {
   const navigate = useNavigate();
   const { signOut } = useAuth();
   const [showAI, setShowAI] = useState(false);
+  const { company_name, plan } = useBranding();
 
   return (
     <SidebarProvider>
@@ -74,8 +77,8 @@ export default function Layout({ children }) {
                         <SidebarMenuButton
                           asChild
                           className={`group relative mb-1 rounded-xl transition-all duration-300 ${isActive
-                              ? "bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white shadow-lg shadow-purple-500/25"
-                              : "hover:bg-slate-100/80 text-slate-700"
+                            ? "bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white shadow-lg shadow-purple-500/25"
+                            : "hover:bg-slate-100/80 text-slate-700"
                             }`}
                         >
                           <Link to={item.url} className="flex items-center gap-3 px-4 py-2.5">
@@ -104,11 +107,11 @@ export default function Layout({ children }) {
             </Button>
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">TC</span>
+                <span className="text-white font-semibold text-sm">{company_name.charAt(0).toUpperCase()}</span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-slate-900 text-sm truncate">Travel Co.</p>
-                <p className="text-xs text-slate-500 truncate">Pro Plan</p>
+                <p className="font-semibold text-slate-900 text-sm truncate">{company_name}</p>
+                <p className="text-xs text-slate-500 truncate">{plan}</p>
               </div>
               <Button
                 variant="ghost"
@@ -153,6 +156,7 @@ export default function Layout({ children }) {
           </header>
 
           <div className="flex-1 overflow-auto">{children}</div>
+          <TriponicWatermark />
 
           {/* AI Assistant Modal */}
           {showAI && <AIAssistant onClose={() => setShowAI(false)} />}

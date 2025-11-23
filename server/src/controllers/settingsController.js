@@ -54,6 +54,7 @@ export const updateSettings = async (req, res) => {
             if (organization.contact_phone) updateData.contact_phone = organization.contact_phone;
             if (organization.website) updateData.website = organization.website;
             if (organization.address) updateData.address = organization.address;
+            if (organization.logo_url) updateData.logo_url = organization.logo_url;
 
             const { error } = await supabase
                 .from('agencies')

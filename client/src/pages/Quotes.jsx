@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from "@/api/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -14,24 +14,44 @@ import {
   Eye,
   DollarSign,
   Calendar,
-  User
+  User,
+  X,
+  TrendingUp,
+  Clock,
+  CheckCircle2
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const statusColors = {
-  draft: 'bg-slate-100 text-slate-700 border-slate-200',
-  sent: 'bg-blue-100 text-blue-700 border-blue-200',
-  paid: 'bg-green-100 text-green-700 border-green-200',
-  overdue: 'bg-red-100 text-red-700 border-red-200',
-  cancelled: 'bg-orange-100 text-orange-700 border-orange-200',
+const statusStyles = {
+  draft: 'bg-slate-100 text-slate-600 border-slate-200',
+  sent: 'bg-blue-50 text-blue-600 border-blue-200',
+  paid: 'bg-emerald-50 text-emerald-600 border-emerald-200',
+  overdue: 'bg-rose-50 text-rose-600 border-rose-200',
+  cancelled: 'bg-slate-50 text-slate-400 border-slate-200',
 };
 
 export default function Quotes() {
   const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [newInvoice, setNewInvoice] = useState({
+    client_id: '',
+    amount: '',
+    description: '',
+    due_date: ''
+  });
 
   const { data: invoices = [], isLoading } = useQuery({
     queryKey: ['invoices'],
@@ -40,6 +60,29 @@ export default function Quotes() {
       return response.data.invoices || [];
     },
     initialData: [],
+  });
+
+  const { data: clients = [] } = useQuery({
+    queryKey: ['clients'],
+    queryFn: async () => {
+      const response = await api.get('/clients');
+      return response.data.clients || [];
+    },
+    initialData: [],
+  });
+
+  const createInvoiceMutation = useMutation({
+    mutationFn: (data) => api.post('/invoices', data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['invoices'] });
+      toast.success('Invoice created successfully');
+      setIsCreateOpen(false);
+      setNewInvoice({ client_id: '', amount: '', description: '', due_date: '' });
+    },
+    onError: (err) => {
+      toast.error('Failed to create invoice');
+      console.error("Create Invoice Error:", err);
+    }
   });
 
   const updateInvoiceMutation = useMutation({
@@ -59,151 +102,282 @@ export default function Quotes() {
     updateInvoiceMutation.mutate({ id: invoiceId, status: newStatus });
   };
 
+  const handleCreateSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitting invoice payload:", newInvoice);
+
+    if (!newInvoice.client_id) {
+      toast.error("Please select a client");
+      return;
+    }
+    if (!newInvoice.amount || parseFloat(newInvoice.amount) <= 0) {
+      toast.error("Please enter a valid amount");
+      return;
+    }
+
+    createInvoiceMutation.mutate({
+      ...newInvoice,
+      amount: parseFloat(newInvoice.amount)
+    });
+  };
+
+  // Calculate stats
+  const totalRevenue = invoices.filter(i => i.status === 'paid').reduce((acc, curr) => acc + (parseFloat(curr.amount) || 0), 0);
+  const pendingAmount = invoices.filter(i => i.status === 'sent' || i.status === 'draft').reduce((acc, curr) => acc + (parseFloat(curr.amount) || 0), 0);
+  const paidCount = invoices.filter(i => i.status === 'paid').length;
+
   return (
-    <div className="p-6 lg:p-8 space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
-          <div>
-            <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
-              Invoices
-            </h1>
-            <p className="text-slate-600">
-              Manage client invoices and payments
-            </p>
-          </div>
+    <div className="p-6 lg:p-8 space-y-8 max-w-7xl mx-auto">
+      {/* Header Section */}
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+        <div>
+          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600">
+            Financial Overview
+          </h1>
+          <p className="text-slate-500 mt-1">
+            Track your agency's revenue and invoices
+          </p>
+        </div>
+        <div className="flex gap-3">
           <Button
-            className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600"
-            onClick={() => toast.info('Use Tono AI to create invoices: "create an invoice for [client name]"')}
+            variant="outline"
+            className="border-slate-200 hover:bg-slate-50 text-slate-600"
+            onClick={() => toast.info('Ask Tono: "Create an invoice for [Client] for $[Amount]"')}
           >
             <Plus className="w-4 h-4 mr-2" />
-            Create Invoice (via Tono AI)
+            AI Create
+          </Button>
+          <Button
+            className="bg-slate-900 hover:bg-slate-800 text-white shadow-lg shadow-slate-900/20 transition-all"
+            onClick={() => setIsCreateOpen(true)}
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            New Invoice
           </Button>
         </div>
+      </div>
 
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <Input
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search invoices by client name or ID..."
-            className="pl-10"
-          />
-        </div>
-      </motion.div>
-
-      {isLoading ? (
-        <div className="space-y-4">
-          {[1, 2, 3].map(i => (
-            <Card key={i}>
-              <CardContent className="p-6">
-                <Skeleton className="h-24 w-full" />
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : filteredInvoices.length === 0 ? (
-        <Card className="border-slate-200/60">
-          <CardContent className="p-12 text-center">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FileText className="w-8 h-8 text-purple-600" />
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+          <Card className="border-0 shadow-lg shadow-indigo-500/5 bg-gradient-to-br from-indigo-500 to-purple-600 text-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 opacity-10">
+              <TrendingUp className="w-24 h-24" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">No invoices yet</h3>
-            <p className="text-slate-600 mb-4">Ask Tono AI to create your first invoice</p>
-            <p className="text-sm text-slate-500">
-              Example: "create an invoice for Pulkit Test"
-            </p>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="space-y-4">
-          {filteredInvoices.map((invoice, index) => (
-            <motion.div
-              key={invoice.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-            >
-              <Card className="border-slate-200/60 shadow-md hover:shadow-lg transition-all">
+            <CardContent className="p-6 relative z-10">
+              <p className="text-indigo-100 font-medium text-sm">Total Revenue</p>
+              <h3 className="text-3xl font-bold mt-2">${totalRevenue.toLocaleString()}</h3>
+              <p className="text-indigo-100/80 text-xs mt-4">Lifetime earnings</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+          <Card className="border-0 shadow-lg shadow-slate-200/50 bg-white">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-slate-500 font-medium text-sm">Pending</p>
+                  <h3 className="text-3xl font-bold text-slate-900 mt-2">${pendingAmount.toLocaleString()}</h3>
+                </div>
+                <div className="p-3 bg-orange-50 rounded-xl">
+                  <Clock className="w-6 h-6 text-orange-500" />
+                </div>
+              </div>
+              <p className="text-slate-400 text-xs mt-4">Awaiting payment</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+          <Card className="border-0 shadow-lg shadow-slate-200/50 bg-white">
+            <CardContent className="p-6">
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-slate-500 font-medium text-sm">Paid Invoices</p>
+                  <h3 className="text-3xl font-bold text-slate-900 mt-2">{paidCount}</h3>
+                </div>
+                <div className="p-3 bg-emerald-50 rounded-xl">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-500" />
+                </div>
+              </div>
+              <p className="text-slate-400 text-xs mt-4">Successfully processed</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+
+      {/* Search & Filter */}
+      <div className="relative">
+        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+        <Input
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search by client, ID, or amount..."
+          className="pl-11 h-12 bg-white border-slate-200 shadow-sm rounded-xl focus:ring-2 focus:ring-indigo-500/20 transition-all"
+        />
+      </div>
+
+      {/* Invoices List */}
+      <div className="space-y-4">
+        <AnimatePresence>
+          {isLoading ? (
+            [1, 2, 3].map(i => (
+              <Card key={i} className="border-0 shadow-sm bg-white">
                 <CardContent className="p-6">
-                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    <div className="flex-1 space-y-3">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="text-lg font-bold text-slate-900 mb-1">
-                            Invoice #{invoice.id.slice(0, 8)}
-                          </h3>
-                          <div className="flex items-center gap-2 text-sm text-slate-500">
-                            <User className="w-4 h-4" />
-                            {invoice.client?.full_name || 'Unknown Client'}
-                          </div>
-                        </div>
-                        <Badge variant="outline" className={statusColors[invoice.status] || statusColors.draft}>
-                          {invoice.status || 'draft'}
-                        </Badge>
-                      </div>
-
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600">
-                        <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
-                          Created {format(new Date(invoice.created_at), 'MMM d, yyyy')}
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <DollarSign className="w-4 h-4" />
-                          <span className="font-semibold text-slate-900">
-                            ${invoice.amount?.toLocaleString() || 0} USD
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => toast.info('Invoice details coming soon')}
-                      >
-                        <Eye className="w-4 h-4 mr-2" />
-                        View
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => toast.info('PDF generation coming soon')}
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        PDF
-                      </Button>
-                      {invoice.status === 'draft' && (
-                        <Button
-                          size="sm"
-                          className="bg-gradient-to-r from-purple-600 to-blue-600"
-                          onClick={() => handleStatusChange(invoice.id, 'sent')}
-                        >
-                          <Send className="w-4 h-4 mr-2" />
-                          Send
-                        </Button>
-                      )}
-                      {invoice.status === 'sent' && (
-                        <Button
-                          size="sm"
-                          className="bg-gradient-to-r from-green-600 to-emerald-600"
-                          onClick={() => handleStatusChange(invoice.id, 'paid')}
-                        >
-                          Mark Paid
-                        </Button>
-                      )}
-                    </div>
-                  </div>
+                  <Skeleton className="h-16 w-full" />
                 </CardContent>
               </Card>
+            ))
+          ) : filteredInvoices.length === 0 ? (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
+              <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <FileText className="w-8 h-8 text-slate-300" />
+              </div>
+              <h3 className="text-lg font-medium text-slate-900">No invoices found</h3>
+              <p className="text-slate-500">Try adjusting your search or create a new one.</p>
             </motion.div>
-          ))}
-        </div>
-      )}
+          ) : (
+            filteredInvoices.map((invoice, index) => (
+              <motion.div
+                key={invoice.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+              >
+                <Card className="border-0 shadow-sm hover:shadow-md transition-all bg-white group overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="flex flex-col lg:flex-row items-stretch">
+                      {/* Left Status Stripe */}
+                      <div className={`w-full lg:w-1.5 ${invoice.status === 'paid' ? 'bg-emerald-500' : invoice.status === 'sent' ? 'bg-blue-500' : 'bg-slate-300'}`} />
+
+                      <div className="flex-1 p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold text-sm">
+                            {invoice.client?.full_name?.charAt(0) || '#'}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-slate-900">{invoice.client?.full_name || 'Unknown Client'}</h4>
+                            <p className="text-xs text-slate-500 font-mono mt-0.5">#{invoice.invoice_number || invoice.id.slice(0, 8)}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-8 text-sm">
+                          <div className="flex flex-col">
+                            <span className="text-slate-400 text-xs mb-0.5">Amount</span>
+                            <span className="font-bold text-slate-900">${parseFloat(invoice.amount).toLocaleString()}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-slate-400 text-xs mb-0.5">Date</span>
+                            <span className="text-slate-600">{format(new Date(invoice.created_at), 'MMM d, yyyy')}</span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-slate-400 text-xs mb-0.5">Status</span>
+                            <Badge variant="outline" className={`capitalize ${statusStyles[invoice.status] || statusStyles.draft}`}>
+                              {invoice.status}
+                            </Badge>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-slate-400 hover:text-slate-900">
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-slate-400 hover:text-slate-900">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                          {invoice.status === 'draft' && (
+                            <Button
+                              size="sm"
+                              className="bg-slate-900 text-white hover:bg-slate-800 h-8 text-xs"
+                              onClick={() => handleStatusChange(invoice.id, 'sent')}
+                            >
+                              Send
+                            </Button>
+                          )}
+                          {invoice.status === 'sent' && (
+                            <Button
+                              size="sm"
+                              className="bg-emerald-600 text-white hover:bg-emerald-700 h-8 text-xs"
+                              onClick={() => handleStatusChange(invoice.id, 'paid')}
+                            >
+                              Mark Paid
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Manual Invoice Dialog */}
+      <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Create New Invoice</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleCreateSubmit} className="space-y-4 mt-4">
+            <div className="space-y-2">
+              <Label>Client</Label>
+              <Select
+                value={newInvoice.client_id}
+                onValueChange={(val) => setNewInvoice({ ...newInvoice, client_id: val })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a client" />
+                </SelectTrigger>
+                <SelectContent>
+                  {clients.map(client => (
+                    <SelectItem key={client.id} value={client.id}>
+                      {client.full_name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Amount ($)</Label>
+                <Input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={newInvoice.amount}
+                  onChange={(e) => setNewInvoice({ ...newInvoice, amount: e.target.value })}
+                  placeholder="0.00"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Due Date</Label>
+                <Input
+                  type="date"
+                  value={newInvoice.due_date}
+                  onChange={(e) => setNewInvoice({ ...newInvoice, due_date: e.target.value })}
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>Description</Label>
+              <Input
+                value={newInvoice.description}
+                onChange={(e) => setNewInvoice({ ...newInvoice, description: e.target.value })}
+                placeholder="e.g. Trip to Paris deposit"
+              />
+            </div>
+            <DialogFooter className="mt-6">
+              <Button type="button" variant="outline" onClick={() => setIsCreateOpen(false)}>Cancel</Button>
+              <Button type="submit" disabled={createInvoiceMutation.isPending} className="bg-slate-900 text-white hover:bg-slate-800">
+                {createInvoiceMutation.isPending ? 'Creating...' : 'Create Invoice'}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

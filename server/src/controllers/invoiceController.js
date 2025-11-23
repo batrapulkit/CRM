@@ -50,28 +50,46 @@ export async function getInvoices(req, res) {
   }
 }
 
-export async function createInvoice(req, res) {
+export const createInvoice = async (req, res) => {
   try {
+    console.log('Creating invoice with body:', req.body);
+    const { client_id, amount, description, due_date } = req.body;
+
+    if (!client_id || !amount) {
+      console.error('Missing required fields: client_id or amount');
+      return res.status(400).json({ error: 'Client and Amount are required' });
+    }
+
     const invoiceNumber = `INV-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-    const { data, error } = await supabase
+    const { data: invoice, error } = await supabase
       .from('invoices')
       .insert({
-        ...req.body,
-        invoice_number: invoiceNumber,
         agency_id: req.user.agency_id,
-        created_by: req.user.id
+        client_id,
+        amount: parseFloat(amount),
+        status: 'draft',
+        invoice_number: invoiceNumber,
+        created_by: req.user.id,
+        created_at: new Date().toISOString(),
+        description,
+        due_date
       })
       .select()
       .single();
 
-    if (error) throw error;
-    res.json({ success: true, data });
+    if (error) {
+      console.error('Supabase error creating invoice:', error);
+      throw error;
+    }
+
+    console.log('Invoice created successfully:', invoice);
+    return res.status(201).json({ success: true, invoice });
   } catch (error) {
-    console.error('Create invoice error:', error);
-    res.status(500).json({ error: 'Failed to create invoice' });
+    console.error('Error in createInvoice:', error);
+    return res.status(500).json({ error: 'Failed to create invoice' });
   }
-}
+};
 
 export async function updateInvoice(req, res) {
   try {

@@ -19,7 +19,10 @@ const SYSTEM_PROMPT = `
 You are TONO, AI assistant for Triponic B2B.
 Detect intents and automate itinerary creation when asked like:
 "Create itinerary for <client> to <destination> for <X days>"
-Return JSON for automation results when creating.
+"Add a dinner on day 2" (edit intent)
+"Create invoice for <client> for <amount>"
+
+Return JSON for automation results when creating or editing.
 `;
 
 /* intent detection uses model to parse user message into fields */
@@ -32,13 +35,25 @@ Extract fields from the message:
 "${message}"
 
 Return ONLY JSON:
-{ "intent": "itinerary|invoice|booking|proposal|general", "client_name": "string|null", "destination": "string|null", "duration": "string|null", "dates":"string|null", "itinerary_id": "string|null" }
+{ 
+  "intent": "itinerary|edit_itinerary|invoice|booking|proposal|general", 
+  "client_name": "string|null", 
+  "destination": "string|null", 
+  "duration": "string|null", 
+  "dates": "string|null", 
+  "itinerary_id": "string|null",
+  "edit_instruction": "string|null",
+  "invoice_amount": "number|null",
+  "invoice_description": "string|null"
+}
 `;
 
   const result = await model.generateContent(prompt);
   const raw = (await result.response).text().trim();
   try {
-    return JSON.parse(raw);
+    // Clean up markdown code blocks if present
+    const cleanRaw = raw.replace(/```json/g, '').replace(/```/g, '').trim();
+    return JSON.parse(cleanRaw);
   } catch (err) {
     // fallback safe default
     return { intent: 'general', client_name: null, destination: null, duration: null, dates: null };
@@ -49,27 +64,61 @@ Return ONLY JSON:
 async function createDayWiseItinerary({ destination, duration, interests, travelers, budget, client }) {
   const model = getModel();
   const daysNum = parseInt((String(duration).match(/\d+/) || [duration])[0] || 1, 10);
+  const clientLocation = client.address || "unknown"; // Assuming address contains city or we default
 
-  const prompt = `
-You are an expert travel planner. Produce a day-wise itinerary as valid JSON ONLY.
+  const prompt = `You are an AI travel planner. Generate a complete trip itinerary.
 
-Input:
-- destination: ${destination}
-- duration_days: ${daysNum}
-- travelers: ${travelers || 1}
-- interests: ${Array.isArray(interests) ? interests.join(',') : interests || 'general'}
-- budget: ${budget || 'moderate'}
-- client: ${client ? client.full_name : 'unknown'}
+Trip Details:
+- Destination: ${destination}
+- Duration: ${daysNum} days
+- Travelers: ${travelers || 1}
+- Budget: ${budget || 'moderate'}
+- Interests: ${Array.isArray(interests) ? interests.join(', ') : interests || 'general'}
+- User City: ${clientLocation}
+- Currency: USD
 
-Return JSON structure with "daily" array and fields similar to { title, summary, destination, duration, daily:[{day, morning, afternoon, evening, activities:[], meals:{}, notes:""}], travel_tips:[], estimated_total_cost:"" }.
-Generate ${daysNum} days.
+Return ONLY valid JSON:
+
+{
+  "content": "Welcome message (50-80 words)",
+  "detailedPlan": {
+    "destination": "${destination}",
+    "description": "Description (40-60 words)",
+    "thumbnail": "Landmark name",
+    "duration": "${daysNum} days",
+    "travelers": ${travelers || 1},
+    "budget": "${budget || 'moderate'}",
+    "interest": "${Array.isArray(interests) ? interests.join(', ') : interests || 'general'}",
+    "totalCost": "Estimated cost range",
+    "flights": { "departure": "${clientLocation}", "price": "$XXX", "airline": "Name", "duration": "X hours" },
+    "hotel": { "name": "Hotel name", "location": "Area", "price": "$XXX/night", "rating": 4.5, "amenities": ["WiFi", "Breakfast"] },
+    "dailyPlan": [
+      {
+        "day": 1,
+        "title": "Day title",
+        "description": "Brief description",
+        "activities": ["Activity 1", "Activity 2", "Activity 3", "Activity 4"],
+        "activitiesDescription": ["Detail 1 (30-40 words)", "Detail 2", "Detail 3", "Detail 4"],
+        "travelTips": ["Tip 1", "Tip 2"],
+        "meals": { "breakfast": "Suggestion", "lunch": "Suggestion", "dinner": "Suggestion" },
+        "notes": "Notes",
+        "image": "Landmark",
+        "weather": "Weather",
+        "transport": "Transport"
+      }
+    ],
+    "weather": { "temp": "XX-XX°C", "condition": "Condition", "recommendation": "What to pack" }
+  },
+  "suggestions": ["Tip 1", "Tip 2", "Tip 3"]
+}
 `;
 
   const result = await model.generateContent(prompt);
   const raw = (await result.response).text();
   // parse attempt
   try {
-    return JSON.parse(raw);
+    const cleanRaw = raw.replace(/```json/g, '').replace(/```/g, '').trim();
+    return JSON.parse(cleanRaw);
   } catch (err) {
     const match = raw.match(/(\{[\s\S]*\})/);
     if (match) {
@@ -77,14 +126,39 @@ Generate ${daysNum} days.
     }
     // fallback to a simple object with raw text in first day
     return {
-      title: `${destination} ${daysNum}-day trip`,
-      summary: raw.slice(0, 200),
-      destination,
-      duration: daysNum,
-      daily: [{ day: 1, morning: raw.slice(0, 200), afternoon: '', evening: '', activities: [], meals: {}, notes: '' }],
-      travel_tips: [],
-      estimated_total_cost: 'TBD'
+      content: raw.slice(0, 200),
+      detailedPlan: {
+        destination,
+        duration: `${daysNum} days`,
+        dailyPlan: [{ day: 1, title: 'Day 1', description: raw.slice(0, 200), activities: [], meals: {}, notes: '' }]
+      }
     };
+  }
+}
+
+/* Edit an existing itinerary using LLM */
+async function editItinerary(currentJson, instruction) {
+  const model = getModel();
+  const prompt = `
+You are an expert travel planner.
+I have an existing itinerary JSON:
+${JSON.stringify(currentJson, null, 2)}
+
+User Instruction: "${instruction}"
+
+Please modify the JSON to reflect the user's instruction.
+Ensure the structure remains EXACTLY the same.
+Return ONLY the modified valid JSON.
+`;
+
+  const result = await model.generateContent(prompt);
+  const raw = (await result.response).text();
+  try {
+    const cleanRaw = raw.replace(/```json/g, '').replace(/```/g, '').trim();
+    return JSON.parse(cleanRaw);
+  } catch (err) {
+    console.error('Failed to parse edited JSON', err);
+    return null;
   }
 }
 
@@ -95,8 +169,9 @@ export const chatWithAI = async (req, res) => {
     if (!message) return res.status(400).json({ error: 'Message required' });
 
     const intentData = await detectIntent(message);
-    const { intent, client_name, destination, duration } = intentData;
+    const { intent, client_name, destination, duration, edit_instruction, invoice_amount, invoice_description } = intentData;
 
+    // --- CREATE ITINERARY ---
     if (intent === 'itinerary' && client_name) {
       // find client with partial match
       const { data: clients } = await supabase
@@ -116,16 +191,21 @@ export const chatWithAI = async (req, res) => {
 
       const aiJson = await createDayWiseItinerary({ destination, duration, interests: client.interests, travelers: 1, budget: client.budget_range, client });
 
-      const aiText = aiJson && aiJson.summary ? aiJson.summary : JSON.stringify(aiJson).slice(0, 400);
+      // Map the new structure to the DB fields
+      // aiJson has { content, detailedPlan: { ... } }
+      // We store the whole thing in ai_generated_json
+      // And use content or detailedPlan.description for ai_generated_content
+
+      const aiText = aiJson.content || (aiJson.detailedPlan && aiJson.detailedPlan.description) || "Itinerary created.";
 
       // save to DB
       const { data: saved, error } = await supabase
         .from('itineraries')
         .insert({
           destination,
-          duration: aiJson.duration || parseInt((String(duration).match(/\d+/) || [duration])[0] || 1, 10),
+          duration: aiJson.detailedPlan?.duration ? parseInt(aiJson.detailedPlan.duration) : parseInt((String(duration).match(/\d+/) || [duration])[0] || 1, 10),
           ai_generated_content: aiText,
-          ai_generated_json: aiJson,
+          ai_generated_json: aiJson, // Store the full new structure
           client_id: client.id,
           agency_id: req.user.agency_id,
           created_by: req.user.id,
@@ -143,65 +223,8 @@ export const chatWithAI = async (req, res) => {
         success: true,
         action: 'itinerary_created',
         itinerary_id: saved.id,
-        response: `Itinerary created for ${client.full_name}. Destination: ${destination}. Duration: ${aiJson.duration} day(s).`,
+        response: `Itinerary created for ${client.full_name}. Destination: ${destination}.`,
         raw: aiJson
-      });
-    }
-
-    // Handle invoice generation intent
-    if (intent === 'invoice' && client_name) {
-      // find client with partial match
-      const { data: clients } = await supabase
-        .from('clients')
-        .select('*')
-        .ilike('full_name', `%${client_name}%`)
-        .eq('agency_id', req.user.agency_id);
-
-      if (!clients || clients.length === 0) {
-        return res.json({ success: true, response: `I couldn't find client similar to "${client_name}".` });
-      }
-      const client = clients[0];
-
-      // Get the latest itinerary for this client
-      const { data: itineraries } = await supabase
-        .from('itineraries')
-        .select('*')
-        .eq('client_id', client.id)
-        .eq('agency_id', req.user.agency_id)
-        .order('created_at', { ascending: false })
-        .limit(1);
-
-      if (!itineraries || itineraries.length === 0) {
-        return res.json({ success: true, response: `No itinerary found for ${client.full_name}. Please create an itinerary first.` });
-      }
-
-      const itinerary = itineraries[0];
-
-      // Calculate invoice amount based on itinerary budget
-      const budgetMatch = itinerary.budget?.match(/\d+/);
-      const amount = budgetMatch ? parseFloat(budgetMatch[0]) : 1000;
-
-      // Create invoice
-      const { data: invoice, error } = await supabase
-        .from('invoices')
-        .insert({
-          agency_id: req.user.agency_id,
-          client_id: client.id,
-          amount: amount,
-          status: 'draft',
-          created_at: new Date().toISOString()
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      return res.json({
-        success: true,
-        action: 'invoice_created',
-        invoice_id: invoice.id,
-        response: `Invoice created for ${client.full_name}. Amount: $${amount.toFixed(2)}. Status: Draft.`,
-        raw: invoice
       });
     }
 
