@@ -158,7 +158,7 @@ export default function Dashboard() {
               <div
                 key={client.id}
                 className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
-                onClick={() => navigate('/clients')}
+                onClick={() => navigate(`/clients/${client.id}`)}
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">

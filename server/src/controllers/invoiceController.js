@@ -53,11 +53,11 @@ export async function getInvoices(req, res) {
 export const createInvoice = async (req, res) => {
   try {
     console.log('Creating invoice with body:', req.body);
-    const { client_id, amount, description, due_date } = req.body;
+    const { client_id, total, notes, due_date } = req.body;
 
-    if (!client_id || !amount) {
-      console.error('Missing required fields: client_id or amount');
-      return res.status(400).json({ error: 'Client and Amount are required' });
+    if (!client_id || !total) {
+      console.error('Missing required fields: client_id or total');
+      return res.status(400).json({ error: 'Client and Total are required' });
     }
 
     const invoiceNumber = `INV-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
@@ -67,12 +67,12 @@ export const createInvoice = async (req, res) => {
       .insert({
         agency_id: req.user.agency_id,
         client_id,
-        amount: parseFloat(amount),
+        total: parseFloat(total),
         status: 'draft',
         invoice_number: invoiceNumber,
         created_by: req.user.id,
         created_at: new Date().toISOString(),
-        description,
+        notes,
         due_date
       })
       .select()

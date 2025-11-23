@@ -5,9 +5,9 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Dialog } from '../components/ui/dialog';
-import { 
-  Plus, Search, Mail, Phone, Building, MapPin, 
-  Users, TrendingUp, Edit, Trash2, Eye 
+import {
+  Plus, Search, Mail, Phone, Building, MapPin,
+  Users, TrendingUp, Edit, Trash2, Eye
 } from 'lucide-react';
 import api from '../api/client';
 
@@ -261,8 +261,8 @@ export default function Clients() {
               </thead>
               <tbody>
                 {filteredClients.map((client) => (
-                  <tr key={client.id} className="border-b hover:bg-gray-50">
-                    <td className="py-3 px-4 font-medium">{client.name}</td>
+                  <tr key={client.id} className="border-b hover:bg-gray-50 cursor-pointer" onClick={() => window.location.href = `/clients/${client.id}`}>
+                    <td className="py-3 px-4 font-medium text-blue-600 hover:underline">{client.name}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
                         <Mail className="w-4 h-4 text-gray-400" />
@@ -300,11 +300,10 @@ export default function Clients() {
                       )}
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`px-2 py-1 rounded-full text-xs ${
-                        client.status === 'active' 
-                          ? 'bg-green-100 text-green-800' 
+                      <span className={`px-2 py-1 rounded-full text-xs ${client.status === 'active'
+                          ? 'bg-green-100 text-green-800'
                           : 'bg-gray-100 text-gray-800'
-                      }`}>
+                        }`}>
                         {client.status}
                       </span>
                     </td>
@@ -313,14 +312,14 @@ export default function Clients() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleEdit(client)}
+                          onClick={(e) => { e.stopPropagation(); handleEdit(client); }}
                         >
                           <Edit className="w-4 h-4" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleDelete(client.id)}
+                          onClick={(e) => { e.stopPropagation(); handleDelete(client.id); }}
                           className="text-red-600 hover:text-red-700"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -343,7 +342,7 @@ export default function Clients() {
               <h2 className="text-2xl font-bold mb-6">
                 {selectedClient ? 'Edit Client' : 'Add New Client'}
               </h2>
-              
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -421,9 +420,9 @@ export default function Clients() {
                   <Button type="submit" className="flex-1">
                     {selectedClient ? 'Update Client' : 'Add Client'}
                   </Button>
-                  <Button 
-                    type="button" 
-                    variant="outline" 
+                  <Button
+                    type="button"
+                    variant="outline"
                     onClick={() => {
                       setShowAddDialog(false);
                       setSelectedClient(null);

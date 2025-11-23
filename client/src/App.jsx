@@ -12,6 +12,7 @@ import Finance from './pages/Finance';
 import Settings from './pages/Settings';
 import CRM from './pages/CRM';
 import Layout from './components/Layout';
+import ClientDetails from './pages/ClientDetails';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,8 +57,10 @@ function AppRoutes() {
           <ProtectedRoute>
             <Layout>
               <Routes>
+
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/clients" element={<Clients />} />
+                <Route path="/clients/:id" element={<ClientDetails />} />
                 <Route path="/itineraries" element={<Itineraries />} />
                 <Route path="/quotes" element={<Quotes />} />
                 <Route path="/finance" element={<Finance />} />

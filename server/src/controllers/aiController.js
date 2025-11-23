@@ -228,6 +228,50 @@ export const chatWithAI = async (req, res) => {
       });
     }
 
+    // --- CREATE INVOICE ---
+    if (intent === 'invoice' && client_name && invoice_amount) {
+      // find client
+      const { data: clients } = await supabase
+        .from('clients')
+        .select('*')
+        .ilike('full_name', `%${client_name}%`)
+        .eq('agency_id', req.user.agency_id);
+
+      if (!clients || clients.length === 0) {
+        return res.json({ success: true, response: `I couldn't find client similar to "${client_name}" to create an invoice.` });
+      }
+      const client = clients[0];
+      const invoiceNumber = `INV-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+      const { data: invoice, error } = await supabase
+        .from('invoices')
+        .insert({
+          agency_id: req.user.agency_id,
+          client_id: client.id,
+          total: parseFloat(invoice_amount),
+          status: 'draft',
+          invoice_number: invoiceNumber,
+          created_by: req.user.id,
+          created_at: new Date().toISOString(),
+          notes: invoice_description || 'AI Generated Invoice',
+          due_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() // Due in 7 days default
+        })
+        .select()
+        .single();
+
+      if (error) {
+        console.error("AI Invoice creation error:", error);
+        return res.json({ success: true, response: "I encountered an error creating the invoice." });
+      }
+
+      return res.json({
+        success: true,
+        action: 'invoice_created',
+        invoice_id: invoice.id,
+        response: `Invoice #${invoiceNumber} created for ${client.full_name} for $${invoice_amount}.`
+      });
+    }
+
     // fallback: simple chat mode (short)
     const model = getModel();
     let historyString = '';

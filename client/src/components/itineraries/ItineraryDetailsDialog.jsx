@@ -1,4 +1,3 @@
-// Itinerary Details Dialog with PDF export and branding
 import React, { useState, useEffect } from "react";
 import {
     Dialog,
@@ -8,16 +7,19 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Calendar, Users, DollarSign, Clock, FileDown, Edit, Send, Plane, Hotel, Utensils, Camera, Sun } from "lucide-react";
+import { MapPin, Calendar, Users, DollarSign, Clock, FileDown, Edit, Send, Plane, Hotel, Utensils, Camera, Sun, X } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { downloadItineraryPDF } from "@/utils/pdfGenerator";
 import api from "@/api/client";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export default function ItineraryDetailsDialog({ itinerary, open, onClose }) {
+export default function ItineraryDetailsDialog({ itinerary, open, onClose, onEdit }) {
     const [isExporting, setIsExporting] = useState(false);
     const [branding, setBranding] = useState({ company_name: "Triponic", logo_url: "" });
+    const queryClient = useQueryClient();
 
     // Load branding (company name & logo) from settings
     useEffect(() => {
@@ -34,6 +36,17 @@ export default function ItineraryDetailsDialog({ itinerary, open, onClose }) {
                 // keep defaults
             });
     }, []);
+
+    const updateStatusMutation = useMutation({
+        mutationFn: (newStatus) => api.patch(`/itineraries/${itinerary?.id}`, { status: newStatus }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['itineraries'] });
+            toast.success("Status updated successfully");
+        },
+        onError: () => {
+            toast.error("Failed to update status");
+        }
+    });
 
     if (!itinerary) return null;
 
@@ -56,16 +69,34 @@ export default function ItineraryDetailsDialog({ itinerary, open, onClose }) {
     return (
         <Dialog open={open} onOpenChange={onClose}>
             <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col p-0 overflow-hidden">
-                <div className="p-6 border-b bg-slate-50/50">
+                <div className="p-6 border-b bg-slate-50/50 relative">
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-4 top-4 text-slate-400 hover:text-slate-600"
+                        onClick={onClose}
+                    >
+                        <X className="w-5 h-5" />
+                    </Button>
                     <DialogHeader>
                         <div className="flex items-center justify-between mr-8">
                             <DialogTitle className="text-2xl font-bold flex items-center gap-2 text-slate-900">
                                 {itinerary.title || details.title || details.destination || "Trip Itinerary"}
-                                {itinerary.status && (
-                                    <Badge variant="outline" className="ml-2 capitalize">
-                                        {itinerary.status}
-                                    </Badge>
-                                )}
+                                <Select
+                                    defaultValue={itinerary.status || 'draft'}
+                                    onValueChange={(val) => updateStatusMutation.mutate(val)}
+                                >
+                                    <SelectTrigger className="w-[120px] h-8 ml-2">
+                                        <SelectValue placeholder="Status" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="draft">Draft</SelectItem>
+                                        <SelectItem value="sent">Sent</SelectItem>
+                                        <SelectItem value="approved">Approved</SelectItem>
+                                        <SelectItem value="booked">Booked</SelectItem>
+                                        <SelectItem value="completed">Completed</SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </DialogTitle>
                         </div>
                         <DialogDescription className="flex flex-wrap gap-6 pt-4 text-sm">
@@ -237,7 +268,7 @@ export default function ItineraryDetailsDialog({ itinerary, open, onClose }) {
 
                 {/* Action Buttons */}
                 <div className="p-4 border-t bg-white flex gap-3 justify-end">
-                    <Button variant="outline" onClick={() => toast.info("Edit functionality coming soon")} className="gap-2">
+                    <Button variant="outline" onClick={onEdit} className="gap-2">
                         <Edit className="w-4 h-4" />
                         Edit
                     </Button>
@@ -250,13 +281,7 @@ export default function ItineraryDetailsDialog({ itinerary, open, onClose }) {
                         <FileDown className="w-4 h-4" />
                         {isExporting ? "Generating PDF..." : "Export PDF"}
                     </Button>
-                    <Button
-                        onClick={() => toast.info("Send to client functionality coming soon")}
-                        className="bg-gradient-to-r from-purple-600 to-blue-600 gap-2"
-                    >
-                        <Send className="w-4 h-4" />
-                        Send to Client
-                    </Button>
+
                 </div>
             </DialogContent>
         </Dialog>

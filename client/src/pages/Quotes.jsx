@@ -18,7 +18,8 @@ import {
   X,
   TrendingUp,
   Clock,
-  CheckCircle2
+  CheckCircle2,
+  Edit
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -33,6 +34,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { downloadInvoicePDF, generateInvoicePDF } from '../utils/pdfGenerator';
 
 const statusStyles = {
   draft: 'bg-slate-100 text-slate-600 border-slate-200',
@@ -46,10 +48,11 @@ export default function Quotes() {
   const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState('');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editingInvoice, setEditingInvoice] = useState(null);
   const [newInvoice, setNewInvoice] = useState({
     client_id: '',
-    amount: '',
-    description: '',
+    total: '',
+    notes: '',
     due_date: ''
   });
 
@@ -77,7 +80,7 @@ export default function Quotes() {
       queryClient.invalidateQueries({ queryKey: ['invoices'] });
       toast.success('Invoice created successfully');
       setIsCreateOpen(false);
-      setNewInvoice({ client_id: '', amount: '', description: '', due_date: '' });
+      setNewInvoice({ client_id: '', total: '', notes: '', due_date: '' });
     },
     onError: (err) => {
       toast.error('Failed to create invoice');
@@ -86,11 +89,18 @@ export default function Quotes() {
   });
 
   const updateInvoiceMutation = useMutation({
-    mutationFn: ({ id, status }) => api.patch(`/invoices/${id}`, { status }),
+    mutationFn: ({ id, ...data }) => api.patch(`/invoices/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['invoices'] });
       toast.success('Invoice updated successfully');
+      setIsCreateOpen(false);
+      setEditingInvoice(null);
+      setNewInvoice({ client_id: '', total: '', notes: '', due_date: '' });
     },
+    onError: (err) => {
+      toast.error('Failed to update invoice');
+      console.error("Update Invoice Error:", err);
+    }
   });
 
   const filteredInvoices = invoices.filter(invoice =>
@@ -102,6 +112,17 @@ export default function Quotes() {
     updateInvoiceMutation.mutate({ id: invoiceId, status: newStatus });
   };
 
+  const handleEditInvoice = (invoice) => {
+    setEditingInvoice(invoice);
+    setNewInvoice({
+      client_id: invoice.client_id,
+      total: invoice.total,
+      notes: invoice.notes || '',
+      due_date: invoice.due_date ? invoice.due_date.split('T')[0] : ''
+    });
+    setIsCreateOpen(true);
+  };
+
   const handleCreateSubmit = (e) => {
     e.preventDefault();
     console.log("Submitting invoice payload:", newInvoice);
@@ -110,20 +131,54 @@ export default function Quotes() {
       toast.error("Please select a client");
       return;
     }
-    if (!newInvoice.amount || parseFloat(newInvoice.amount) <= 0) {
+    if (!newInvoice.total || parseFloat(newInvoice.total) <= 0) {
       toast.error("Please enter a valid amount");
       return;
     }
 
-    createInvoiceMutation.mutate({
-      ...newInvoice,
-      amount: parseFloat(newInvoice.amount)
-    });
+    if (editingInvoice) {
+      updateInvoiceMutation.mutate({
+        id: editingInvoice.id,
+        ...newInvoice,
+        total: parseFloat(newInvoice.total)
+      });
+    } else {
+      createInvoiceMutation.mutate({
+        ...newInvoice,
+        total: parseFloat(newInvoice.total)
+      });
+    }
+  };
+
+  const handleViewPDF = async (invoice) => {
+    try {
+      console.log("Generating PDF for invoice:", invoice);
+      const doc = await generateInvoicePDF(invoice, 'Triponic');
+      const blobUrl = doc.output('bloburl');
+      const newWindow = window.open(blobUrl, '_blank');
+      if (!newWindow) {
+        toast.error('Please allow popups to view the invoice PDF');
+      }
+    } catch (error) {
+      console.error("Error viewing PDF:", error);
+      toast.error("Failed to generate PDF for viewing");
+    }
+  };
+
+  const handleDownloadPDF = async (invoice) => {
+    try {
+      console.log("Downloading PDF for invoice:", invoice);
+      await downloadInvoicePDF(invoice, 'Triponic');
+      toast.success("Invoice downloaded successfully");
+    } catch (error) {
+      console.error("Error downloading PDF:", error);
+      toast.error("Failed to download PDF");
+    }
   };
 
   // Calculate stats
-  const totalRevenue = invoices.filter(i => i.status === 'paid').reduce((acc, curr) => acc + (parseFloat(curr.amount) || 0), 0);
-  const pendingAmount = invoices.filter(i => i.status === 'sent' || i.status === 'draft').reduce((acc, curr) => acc + (parseFloat(curr.amount) || 0), 0);
+  const totalRevenue = invoices.filter(i => i.status === 'paid').reduce((acc, curr) => acc + (parseFloat(curr.total) || 0), 0);
+  const pendingAmount = invoices.filter(i => i.status === 'sent' || i.status === 'draft').reduce((acc, curr) => acc + (parseFloat(curr.total) || 0), 0);
   const paidCount = invoices.filter(i => i.status === 'paid').length;
 
   return (
@@ -265,7 +320,7 @@ export default function Quotes() {
                         <div className="flex flex-wrap items-center gap-8 text-sm">
                           <div className="flex flex-col">
                             <span className="text-slate-400 text-xs mb-0.5">Amount</span>
-                            <span className="font-bold text-slate-900">${parseFloat(invoice.amount).toLocaleString()}</span>
+                            <span className="font-bold text-slate-900">${parseFloat(invoice.total).toLocaleString()}</span>
                           </div>
                           <div className="flex flex-col">
                             <span className="text-slate-400 text-xs mb-0.5">Date</span>
@@ -280,11 +335,14 @@ export default function Quotes() {
                         </div>
 
                         <div className="flex items-center gap-2 opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-slate-400 hover:text-slate-900">
+                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-slate-400 hover:text-slate-900" onClick={() => handleViewPDF(invoice)}>
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-slate-400 hover:text-slate-900">
+                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-slate-400 hover:text-slate-900" onClick={() => handleDownloadPDF(invoice)}>
                             <Download className="w-4 h-4" />
+                          </Button>
+                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-slate-400 hover:text-slate-900" onClick={() => handleEditInvoice(invoice)}>
+                            <Edit className="w-4 h-4" />
                           </Button>
                           {invoice.status === 'draft' && (
                             <Button
@@ -315,11 +373,17 @@ export default function Quotes() {
         </AnimatePresence>
       </div>
 
-      {/* Manual Invoice Dialog */}
-      <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
+      {/* Create/Edit Invoice Dialog */}
+      <Dialog open={isCreateOpen} onOpenChange={(open) => {
+        setIsCreateOpen(open);
+        if (!open) {
+          setEditingInvoice(null);
+          setNewInvoice({ client_id: '', total: '', notes: '', due_date: '' });
+        }
+      }}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Create New Invoice</DialogTitle>
+            <DialogTitle>{editingInvoice ? 'Edit Invoice' : 'Create New Invoice'}</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleCreateSubmit} className="space-y-4 mt-4">
             <div className="space-y-2">
@@ -347,8 +411,8 @@ export default function Quotes() {
                   type="number"
                   min="0"
                   step="0.01"
-                  value={newInvoice.amount}
-                  onChange={(e) => setNewInvoice({ ...newInvoice, amount: e.target.value })}
+                  value={newInvoice.total}
+                  onChange={(e) => setNewInvoice({ ...newInvoice, total: e.target.value })}
                   placeholder="0.00"
                 />
               </div>
@@ -362,17 +426,17 @@ export default function Quotes() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label>Description</Label>
+              <Label>Notes</Label>
               <Input
-                value={newInvoice.description}
-                onChange={(e) => setNewInvoice({ ...newInvoice, description: e.target.value })}
+                value={newInvoice.notes}
+                onChange={(e) => setNewInvoice({ ...newInvoice, notes: e.target.value })}
                 placeholder="e.g. Trip to Paris deposit"
               />
             </div>
             <DialogFooter className="mt-6">
               <Button type="button" variant="outline" onClick={() => setIsCreateOpen(false)}>Cancel</Button>
-              <Button type="submit" disabled={createInvoiceMutation.isPending} className="bg-slate-900 text-white hover:bg-slate-800">
-                {createInvoiceMutation.isPending ? 'Creating...' : 'Create Invoice'}
+              <Button type="submit" disabled={createInvoiceMutation.isPending || updateInvoiceMutation.isPending} className="bg-slate-900 text-white hover:bg-slate-800">
+                {createInvoiceMutation.isPending || updateInvoiceMutation.isPending ? 'Saving...' : (editingInvoice ? 'Update Invoice' : 'Create Invoice')}
               </Button>
             </DialogFooter>
           </form>

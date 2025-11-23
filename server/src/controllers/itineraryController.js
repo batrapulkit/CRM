@@ -162,12 +162,17 @@ export const getItineraries = async (req, res) => {
   console.log('getItineraries called for agency:', req.user.agency_id);
   try {
     const limit = req.query.limit ? parseInt(req.query.limit, 10) : null;
+    const clientId = req.query.clientId;
 
     let query = supabase
       .from('itineraries')
       .select('*')
       .eq('agency_id', req.user.agency_id)
       .order('created_at', { ascending: false });
+
+    if (clientId) {
+      query = query.eq('client_id', clientId);
+    }
 
     if (limit) query = query.limit(limit);
 

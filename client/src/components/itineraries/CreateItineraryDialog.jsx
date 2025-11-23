@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from "@/api/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
-export default function CreateItineraryDialog({ open, onClose }) {
+export default function CreateItineraryDialog({ open, onClose, itineraryToEdit = null }) {
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     title: '',
@@ -32,6 +32,32 @@ export default function CreateItineraryDialog({ open, onClose }) {
     budget: '',
     client_id: '',
   });
+
+  useEffect(() => {
+    if (itineraryToEdit) {
+      setFormData({
+        title: itineraryToEdit.title || '',
+        destination: itineraryToEdit.destination || '',
+        start_date: itineraryToEdit.start_date ? new Date(itineraryToEdit.start_date).toISOString().split('T')[0] : '',
+        end_date: itineraryToEdit.end_date ? new Date(itineraryToEdit.end_date).toISOString().split('T')[0] : '',
+        travelers: itineraryToEdit.travelers || 2,
+        trip_type: itineraryToEdit.trip_type || 'family',
+        budget: itineraryToEdit.budget || '',
+        client_id: itineraryToEdit.client_id || itineraryToEdit.client?.id || '',
+      });
+    } else {
+      setFormData({
+        title: '',
+        destination: '',
+        start_date: '',
+        end_date: '',
+        travelers: 2,
+        trip_type: 'family',
+        budget: '',
+        client_id: '',
+      });
+    }
+  }, [itineraryToEdit, open]);
 
   const { data: clients = [] } = useQuery({
     queryKey: ['clients'],
@@ -45,6 +71,23 @@ export default function CreateItineraryDialog({ open, onClose }) {
       toast.success('Itinerary created successfully');
       onClose();
     },
+    onError: (err) => {
+      toast.error('Failed to create itinerary');
+      console.error(err);
+    }
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: (data) => api.entities.Itinerary.update(itineraryToEdit?.id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['itineraries'] });
+      toast.success('Itinerary updated successfully');
+      onClose();
+    },
+    onError: (err) => {
+      toast.error('Failed to update itinerary');
+      console.error(err);
+    }
   });
 
   const handleSubmit = (e) => {
@@ -54,20 +97,24 @@ export default function CreateItineraryDialog({ open, onClose }) {
       ...formData,
       travelers: parseInt(formData.travelers),
       budget: formData.budget ? parseFloat(formData.budget) : null,
-      status: 'draft',
-      ai_generated: false,
+      // Only set default status on create, preserve on update unless logic changes
+      ...(itineraryToEdit ? {} : { status: 'draft', ai_generated: false }),
     };
 
-    createMutation.mutate(itineraryData);
+    if (itineraryToEdit) {
+      updateMutation.mutate(itineraryData);
+    } else {
+      createMutation.mutate(itineraryData);
+    }
   };
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Create Manual Itinerary</DialogTitle>
+          <DialogTitle>{itineraryToEdit ? 'Edit Itinerary' : 'Create Manual Itinerary'}</DialogTitle>
           <DialogDescription>
-            Build a custom itinerary from scratch
+            {itineraryToEdit ? 'Update existing itinerary details' : 'Build a custom itinerary from scratch'}
           </DialogDescription>
         </DialogHeader>
 
@@ -186,9 +233,9 @@ export default function CreateItineraryDialog({ open, onClose }) {
             <Button
               type="submit"
               className="bg-gradient-to-r from-purple-600 to-blue-600"
-              disabled={createMutation.isLoading}
+              disabled={createMutation.isPending || updateMutation.isPending}
             >
-              {createMutation.isLoading ? 'Creating...' : 'Create Itinerary'}
+              {createMutation.isPending || updateMutation.isPending ? 'Saving...' : (itineraryToEdit ? 'Update Itinerary' : 'Create Itinerary')}
             </Button>
           </div>
         </form>

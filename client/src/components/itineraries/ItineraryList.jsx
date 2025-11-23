@@ -17,6 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import ItineraryDetailsDialog from "./ItineraryDetailsDialog";
+import CreateItineraryDialog from "./CreateItineraryDialog";
 
 const statusColors = {
   draft: 'bg-slate-100 text-slate-700 border-slate-200',
@@ -29,6 +30,7 @@ const statusColors = {
 
 export default function ItineraryList({ itineraries, isLoading }) {
   const [selectedItinerary, setSelectedItinerary] = useState(null);
+  const [editingItinerary, setEditingItinerary] = useState(null);
 
   if (isLoading) {
     return (
@@ -133,6 +135,13 @@ export default function ItineraryList({ itineraries, isLoading }) {
                   <div className="flex gap-2">
                     <Button
                       size="sm"
+                      variant="ghost"
+                      onClick={() => setEditingItinerary(itinerary)}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      size="sm"
                       variant="outline"
                       onClick={() => setSelectedItinerary(itinerary)}
                     >
@@ -151,7 +160,19 @@ export default function ItineraryList({ itineraries, isLoading }) {
         itinerary={selectedItinerary}
         open={!!selectedItinerary}
         onClose={() => setSelectedItinerary(null)}
+        onEdit={() => {
+          setEditingItinerary(selectedItinerary);
+          setSelectedItinerary(null);
+        }}
       />
+
+      {editingItinerary && (
+        <CreateItineraryDialog
+          open={!!editingItinerary}
+          onClose={() => setEditingItinerary(null)}
+          itineraryToEdit={editingItinerary}
+        />
+      )}
     </>
   );
 }
