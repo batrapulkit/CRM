@@ -50,7 +50,11 @@ export const register = async (req, res) => {
       .insert({
         agency_name,
         contact_email: email,
+        subscription_plan: 'free',
+        subscription_status: 'active',
+        max_users: 5,
         created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       })
       .select()
       .single();
@@ -168,7 +172,11 @@ export const login = async (req, res) => {
             .insert({
               agency_name: sbUser.user_metadata?.full_name ? `${sbUser.user_metadata.full_name}'s Agency` : "My Agency",
               contact_email: email,
+              subscription_plan: 'free',
+              subscription_status: 'active',
+              max_users: 5,
               created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
             })
             .select()
             .single();
@@ -229,7 +237,11 @@ export const login = async (req, res) => {
               .insert({
                 agency_name: user.name ? `${user.name}'s Agency` : "My Agency",
                 contact_email: email,
+                subscription_plan: 'free',
+                subscription_status: 'active',
+                max_users: 5,
                 created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
               })
               .select()
               .single();
@@ -288,14 +300,32 @@ export const login = async (req, res) => {
       if (!valid) return res.status(401).json({ error: "Invalid password" });
     }
 
+    // Fetch full agency data
+    let agency = null;
+    const finalAgencyId = user.agency_id || (typeof agencyId !== 'undefined' ? agencyId : null);
+
+    if (finalAgencyId) {
+      const { data: agencyData, error: agencyFetchError } = await supabase
+        .from("agencies")
+        .select("*")
+        .eq("id", finalAgencyId)
+        .single();
+
+      if (agencyFetchError) {
+        logToFile(`[Login] Warning: Failed to fetch agency data: ${agencyFetchError.message}`);
+      } else {
+        agency = agencyData;
+        logToFile(`[Login] Agency data fetched: ${agency.agency_name}`);
+      }
+    }
+
     // Sign JWT
     const token = jwt.sign(
       {
         id: user.id,
         email: user.email,
         full_name: user.name,
-        // Use user.agency_id if available, otherwise use the locally created agencyId (if any)
-        agency_id: user.agency_id || (typeof agencyId !== 'undefined' ? agencyId : null),
+        agency_id: finalAgencyId,
         role: user.role,
       },
       process.env.JWT_SECRET,
@@ -308,6 +338,7 @@ export const login = async (req, res) => {
       success: true,
       token,
       user,
+      agency, // Include full agency data
     });
   } catch (err) {
     logToFile(`Login error: ${err.message}`);

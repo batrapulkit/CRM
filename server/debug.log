@@ -981,3 +981,144 @@ Please retry in 28.377955105s. [{"@type":"type.googleapis.com/google.rpc.Help","
 [2025-11-24T01:22:36.350Z] [SUPABASE_CONFIG] Key ISS: supabase
 [2025-11-24T01:23:01.042Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
 [2025-11-24T01:23:01.705Z] [AUTH] [Login] Bcrypt validation result: false
+[2025-11-24T01:23:29.950Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:23:29.951Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:23:39.730Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:23:39.730Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:24:07.829Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:24:07.830Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:24:14.109Z] [AUTH] [Register Attempt] Email: test_1763947454059@example.com, Agency: Test Agency
+[2025-11-24T01:24:14.109Z] [AUTH] [Register] Creating Supabase Auth user...
+[2025-11-24T01:24:14.574Z] [AUTH] [Register] Auth user created. ID: 80b9b55a-3c81-4b5d-bd01-9caea8ef64f3
+[2025-11-24T01:24:14.574Z] [AUTH] [Register] Creating agency...
+[2025-11-24T01:24:14.771Z] [AUTH] [Register Failed] Agency creation error: new row for relation "agencies" violates check constraint "agencies_subscription_plan_check"
+[2025-11-24T01:24:14.918Z] [AUTH] Register error: new row for relation "agencies" violates check constraint "agencies_subscription_plan_check"
+[2025-11-24T01:24:49.367Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:24:49.368Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:26:25.612Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:26:25.613Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:26:33.047Z] [AUTH] [Register Attempt] Email: test_1763947593006@example.com, Agency: Test Agency
+[2025-11-24T01:26:33.047Z] [AUTH] [Register] Creating Supabase Auth user...
+[2025-11-24T01:26:33.492Z] [AUTH] [Register] Auth user created. ID: df4c66f2-b43d-4e92-adad-aea7af068d2b
+[2025-11-24T01:26:33.492Z] [AUTH] [Register] Creating agency...
+[2025-11-24T01:26:33.624Z] [AUTH] [Register Failed] Agency creation error: new row for relation "agencies" violates check constraint "agencies_subscription_plan_check"
+[2025-11-24T01:26:33.699Z] [AUTH] Register error: new row for relation "agencies" violates check constraint "agencies_subscription_plan_check"
+[2025-11-24T01:30:34.689Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:30:34.690Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:30:41.247Z] [AUTH] [Register Attempt] Email: test_1763947841202@example.com, Agency: Test Agency
+[2025-11-24T01:30:41.247Z] [AUTH] [Register] Creating Supabase Auth user...
+[2025-11-24T01:30:41.689Z] [AUTH] [Register] Auth user created. ID: ecdd2185-2bfe-456b-914e-b1bdfe7b17fd
+[2025-11-24T01:30:41.690Z] [AUTH] [Register] Creating agency...
+[2025-11-24T01:30:41.843Z] [AUTH] [Register] Agency created. ID: aa656d9f-14c2-4bcd-98fc-d52f2b1dd4ca
+[2025-11-24T01:30:41.905Z] [AUTH] [Register] Creating user in 'users' table...
+[2025-11-24T01:30:42.044Z] [AUTH] [Register] User created in 'users' table
+[2025-11-24T01:30:42.046Z] [AUTH] [Register Success] Token generated
+[2025-11-24T01:31:56.530Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:31:56.531Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:32:03.529Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T01:32:03.834Z] [AUTH] [Login] Bcrypt validation result: false
+[2025-11-24T01:32:07.780Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T01:32:08.026Z] [AUTH] [Login] Bcrypt validation result: false
+[2025-11-24T01:33:08.083Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:33:08.084Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:33:08.378Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:33:08.378Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:33:29.884Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:33:29.885Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:33:36.188Z] [AUTH] [Register Attempt] Email: test_login_1763948016132@example.com, Agency: Test Login Agency
+[2025-11-24T01:33:36.188Z] [AUTH] [Register] Creating Supabase Auth user...
+[2025-11-24T01:33:36.553Z] [AUTH] [Register] Auth user created. ID: c9224793-b1a8-4452-8492-b72148ad4eeb
+[2025-11-24T01:33:36.553Z] [AUTH] [Register] Creating agency...
+[2025-11-24T01:33:36.745Z] [AUTH] [Register] Agency created. ID: 38823413-e4de-4392-a619-12c8247c2444
+[2025-11-24T01:33:36.807Z] [AUTH] [Register] Creating user in 'users' table...
+[2025-11-24T01:33:36.935Z] [AUTH] [Register] User created in 'users' table
+[2025-11-24T01:33:36.937Z] [AUTH] [Register Success] Token generated
+[2025-11-24T01:33:36.946Z] [AUTH] [Login Attempt] Email: test_login_1763948016132@example.com
+[2025-11-24T01:33:37.196Z] [AUTH] [Login] Bcrypt validation result: true
+[2025-11-24T01:33:37.197Z] [AUTH] [Login Success] Token generated
+[2025-11-24T01:39:13.167Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:39:13.167Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:40:16.228Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-24T01:40:16.383Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-24T01:40:16.564Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T01:40:16.639Z] [CLIENTS] [GetClients] Request from User: e67acfa2-5d18-4adc-af40-4bafb351225b, Agency: 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-24T01:40:16.743Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 5f4d38aa-95b9-4ca6-aa99-7b369e21c092
+[2025-11-24T01:40:16.834Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T01:40:51.087Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T01:40:51.293Z] [AUTH] [Login] Bcrypt validation result: false
+[2025-11-24T01:42:49.942Z] [AUTH] [Login Attempt] Email: test@test.com
+[2025-11-24T01:42:50.223Z] [AUTH] [Login] User not found in 'users' table. Checking Supabase Auth...
+[2025-11-24T01:42:50.415Z] [AUTH] [Login Failed] Supabase Auth failed: Invalid login credentials
+[2025-11-24T01:44:50.872Z] [AUTH] [Login Attempt] Email: test@test.com
+[2025-11-24T01:44:51.748Z] [AUTH] [Login] User not found in 'users' table. Checking Supabase Auth...
+[2025-11-24T01:44:51.951Z] [AUTH] [Login Failed] Supabase Auth failed: Invalid login credentials
+[2025-11-24T01:45:05.256Z] [AUTH] [Register Attempt] Email: testuser@example.com, Agency: Test Agency
+[2025-11-24T01:45:05.256Z] [AUTH] [Register] Creating Supabase Auth user...
+[2025-11-24T01:45:05.554Z] [AUTH] [Register] Auth user created. ID: baa7a615-0bdb-452a-bacc-df11daa2de73
+[2025-11-24T01:45:05.554Z] [AUTH] [Register] Creating agency...
+[2025-11-24T01:45:05.897Z] [AUTH] [Register] Agency created. ID: e24d4fa7-66d6-4ed8-9bbf-05e3e9292a5f
+[2025-11-24T01:45:05.954Z] [AUTH] [Register] Creating user in 'users' table...
+[2025-11-24T01:45:06.113Z] [AUTH] [Register] User created in 'users' table
+[2025-11-24T01:45:06.114Z] [AUTH] [Register Success] Token generated
+[2025-11-24T01:45:17.018Z] [AUTH] [Login Attempt] Email: testuser@example.com
+[2025-11-24T01:45:17.288Z] [AUTH] [Login] Bcrypt validation result: true
+[2025-11-24T01:45:17.558Z] [AUTH] [Login] Agency data fetched: Test Agency
+[2025-11-24T01:45:17.559Z] [AUTH] [Login Success] Token generated
+[2025-11-24T01:45:46.742Z] [AUTH] [Login Attempt] Email: testuser@example.com
+[2025-11-24T01:45:46.955Z] [AUTH] [Login] Bcrypt validation result: true
+[2025-11-24T01:45:47.169Z] [AUTH] [Login] Agency data fetched: Test Agency
+[2025-11-24T01:45:47.170Z] [AUTH] [Login Success] Token generated
+[2025-11-24T01:46:19.566Z] [AUTH] [Login Attempt] Email: testuser@example.com
+[2025-11-24T01:46:19.872Z] [AUTH] [Login] Bcrypt validation result: true
+[2025-11-24T01:46:20.023Z] [AUTH] [Login] Agency data fetched: Test Agency
+[2025-11-24T01:46:20.024Z] [AUTH] [Login Success] Token generated
+[2025-11-24T01:46:20.340Z] [CLIENTS] [GetClients] Request from User: baa7a615-0bdb-452a-bacc-df11daa2de73, Agency: e24d4fa7-66d6-4ed8-9bbf-05e3e9292a5f
+[2025-11-24T01:46:20.459Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency e24d4fa7-66d6-4ed8-9bbf-05e3e9292a5f
+[2025-11-24T01:46:20.564Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T01:46:20.639Z] [CLIENTS] [GetClients] Request from User: baa7a615-0bdb-452a-bacc-df11daa2de73, Agency: e24d4fa7-66d6-4ed8-9bbf-05e3e9292a5f
+[2025-11-24T01:46:20.704Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency e24d4fa7-66d6-4ed8-9bbf-05e3e9292a5f
+[2025-11-24T01:46:20.819Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T01:48:21.396Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T01:48:21.754Z] [AUTH] [Login] Bcrypt validation result: false
+[2025-11-24T01:49:31.922Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T01:49:32.179Z] [AUTH] [Login] Bcrypt validation result: false
+[2025-11-24T01:50:02.961Z] [CLIENTS] [GetClients] Request from User: baa7a615-0bdb-452a-bacc-df11daa2de73, Agency: e24d4fa7-66d6-4ed8-9bbf-05e3e9292a5f
+[2025-11-24T01:50:03.146Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency e24d4fa7-66d6-4ed8-9bbf-05e3e9292a5f
+[2025-11-24T01:50:03.351Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T01:50:03.561Z] [CLIENTS] [GetClients] Request from User: baa7a615-0bdb-452a-bacc-df11daa2de73, Agency: e24d4fa7-66d6-4ed8-9bbf-05e3e9292a5f
+[2025-11-24T01:50:03.635Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency e24d4fa7-66d6-4ed8-9bbf-05e3e9292a5f
+[2025-11-24T01:50:03.772Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T01:50:36.213Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T01:50:36.444Z] [AUTH] [Login] Bcrypt validation result: false
+[2025-11-24T01:51:29.556Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:51:29.557Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:51:36.437Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:51:36.437Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:52:34.205Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T01:52:34.604Z] [AUTH] [Login] Bcrypt validation result: true
+[2025-11-24T01:52:34.900Z] [AUTH] [Login] Agency data fetched: Travelpro
+[2025-11-24T01:52:34.903Z] [AUTH] [Login Success] Token generated
+[2025-11-24T01:52:35.083Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:52:35.181Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:52:35.256Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-24T01:52:35.321Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:52:35.392Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:52:35.466Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-24T01:53:09.295Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:53:09.378Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:53:09.464Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-24T01:53:09.534Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:53:09.607Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:53:09.682Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-24T01:55:48.359Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:55:48.360Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:55:57.812Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T01:55:58.330Z] [AUTH] [Login] Bcrypt validation result: true
+[2025-11-24T01:55:58.438Z] [AUTH] [Login] Agency data fetched: Travelpro
+[2025-11-24T01:55:58.441Z] [AUTH] [Login Success] Token generated
+[2025-11-24T01:55:58.785Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:55:58.988Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:55:59.060Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-24T01:55:59.258Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:55:59.390Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T01:55:59.448Z] [CLIENTS] [GetClients] Success. Found 3 records.
