@@ -1217,3 +1217,99 @@ Please retry in 28.377955105s. [{"@type":"type.googleapis.com/google.rpc.Help","
 [2025-11-24T02:06:06.594Z] [SUPABASE_CONFIG] Key ISS: supabase
 [2025-11-24T02:06:08.495Z] [SUPABASE_CONFIG] Key Role: service_role
 [2025-11-24T02:06:08.497Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T02:15:45.209Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T02:15:45.210Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T02:16:20.287Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:20.391Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:20.470Z] [CLIENTS] [GetClients] Success. Found 4 records.
+[2025-11-24T02:16:20.538Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:20.633Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:20.784Z] [CLIENTS] [GetClients] Success. Found 4 records.
+[2025-11-24T02:16:21.721Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:21.805Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:21.866Z] [CLIENTS] [GetClients] Success. Found 4 records.
+[2025-11-24T02:16:21.941Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:22.002Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:22.115Z] [CLIENTS] [GetClients] Success. Found 4 records.
+[2025-11-24T02:16:22.275Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:22.354Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:22.424Z] [CLIENTS] [GetClients] Success. Found 4 records.
+[2025-11-24T02:16:22.512Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:22.581Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:22.653Z] [CLIENTS] [GetClients] Success. Found 4 records.
+[2025-11-24T02:16:38.638Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:38.703Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:16:38.793Z] [CLIENTS] [GetClients] Success. Found 4 records.
+[2025-11-24T02:17:06.160Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:17:06.241Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T02:17:06.334Z] [CLIENTS] [GetClients] Success. Found 4 records.
+[2025-11-24T02:18:26.767Z] [AUTH] [Register Attempt] Email: ryan@gmail.com, Agency: TravelPro
+[2025-11-24T02:18:26.767Z] [AUTH] [Register] Creating Supabase Auth user...
+[2025-11-24T02:18:27.482Z] [AUTH] [Register] Auth user created. ID: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51
+[2025-11-24T02:18:27.482Z] [AUTH] [Register] Creating agency...
+[2025-11-24T02:18:27.688Z] [AUTH] [Register] Agency created. ID: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:27.786Z] [AUTH] [Register] Creating user in 'users' table...
+[2025-11-24T02:18:27.962Z] [AUTH] [Register] User created in 'users' table
+[2025-11-24T02:18:27.965Z] [AUTH] [Register Success] Token generated
+[2025-11-24T02:18:28.087Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:28.158Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:28.256Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T02:18:28.330Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:28.402Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:28.457Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T02:18:34.908Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:35.059Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:35.215Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T02:18:35.403Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:35.479Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:35.569Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T02:18:36.364Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:36.546Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:36.694Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T02:18:46.452Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:46.532Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:46.630Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T02:18:46.713Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:46.772Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:18:46.845Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T02:19:21.372Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:21.429Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:21.531Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T02:19:21.597Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:21.660Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:21.733Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T02:19:37.397Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:37.464Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:37.560Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:19:42.575Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:42.631Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:42.726Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:19:42.792Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:42.851Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:19:42.910Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:20:26.051Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:20:26.231Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:20:26.440Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:20:41.831Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:20:42.033Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:20:42.158Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:21:16.611Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:21:16.670Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:21:16.773Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:21:16.841Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:21:16.910Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:21:16.977Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:21:37.488Z] Detecting intent for: create a trip to Dubai for Pulkit from 15 dec to 17 dec
+[2025-11-24T02:21:54.683Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:21:54.750Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:21:54.843Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:21:54.919Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:21:54.984Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:21:55.102Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:22:12.347Z] Detecting intent for: create a 2 day trip to dubai for Pulkit
+[2025-11-24T02:22:44.995Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:22:45.171Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:22:45.322Z] [CLIENTS] [GetClients] Success. Found 1 records.
+[2025-11-24T02:22:45.401Z] [CLIENTS] [GetClients] Request from User: cd80bdb0-23c9-416c-ac36-e2b9d3cf6c51, Agency: 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:22:45.539Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency 345d5493-2c39-46e9-8029-e97197e6251a
+[2025-11-24T02:22:45.606Z] [CLIENTS] [GetClients] Success. Found 1 records.
