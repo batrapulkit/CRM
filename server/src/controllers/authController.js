@@ -372,3 +372,91 @@ export const getCurrentUser = async (req, res) => {
 export const logout = async (req, res) => {
   return res.json({ success: true, message: "Logged out" });
 };
+
+// =========================
+// FORGOT PASSWORD
+// =========================
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
+    }
+
+    logToFile(`[Forgot Password] Request for: ${email}`);
+
+    // Send password reset email using Supabase Auth
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password`,
+    });
+
+    if (error) {
+      logToFile(`[Forgot Password] Error: ${error.message}`);
+      // Don't reveal if email exists or not for security
+      return res.json({
+        success: true,
+        message: "If an account exists with this email, you will receive password reset instructions."
+      });
+    }
+
+    logToFile(`[Forgot Password] Reset email sent to: ${email}`);
+
+    return res.json({
+      success: true,
+      message: "Password reset instructions have been sent to your email."
+    });
+  } catch (err) {
+    logToFile(`Forgot password error: ${err.message}`);
+    return res.status(500).json({ error: "Failed to process request" });
+  }
+};
+
+// =========================
+// RESET PASSWORD
+// =========================
+export const resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    if (!token || !newPassword) {
+      return res.status(400).json({ error: "Token and new password are required" });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({ error: "Password must be at least 6 characters" });
+    }
+
+    logToFile(`[Reset Password] Attempting password reset`);
+
+    // Verify the reset token and update password in Supabase Auth
+    const { data, error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
+
+    if (error) {
+      logToFile(`[Reset Password] Error: ${error.message}`);
+      return res.status(400).json({ error: "Invalid or expired reset link" });
+    }
+
+    // Also update the users table password_hash to sync
+    const userId = data.user.id;
+    const newHash = await bcrypt.hash(newPassword, 10);
+
+    await supabase
+      .from('users')
+      .update({ password_hash: newHash })
+      .eq('id', userId);
+
+    logToFile(`[Reset Password] Success for user: ${userId}`);
+
+    return res.json({
+      success: true,
+      message: "Password has been reset successfully. You can now login with your new password."
+    });
+  } catch (err) {
+    logToFile(`Reset password error: ${err.message}`);
+    return res.status(500).json({ error: "Failed to reset password" });
+  }
+};
+

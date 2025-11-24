@@ -4,6 +4,8 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { BrandingProvider } from './contexts/BrandingContext';
 import TestConnection from './pages/TestConnection';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import Clients from './pages/Clients';
 import Itineraries from './pages/Itineraries';
@@ -49,6 +51,14 @@ function AppRoutes() {
       <Route
         path="/login"
         element={user ? <Navigate to="/dashboard" /> : <Login />}
+      />
+      <Route
+        path="/forgot-password"
+        element={user ? <Navigate to="/dashboard" /> : <ForgotPassword />}
+      />
+      <Route
+        path="/reset-password"
+        element={user ? <Navigate to="/dashboard" /> : <ResetPassword />}
       />
 
       <Route

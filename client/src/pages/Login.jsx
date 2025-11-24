@@ -10,7 +10,7 @@ export default function Login() {
   const [agencyName, setAgencyName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const navigate = useNavigate();
   const { signIn, signUp } = useAuth();
 
@@ -105,6 +105,16 @@ export default function Login() {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               required
             />
+            {!isSignUp && (
+              <div className="text-right mt-2">
+                <a
+                  href="/forgot-password"
+                  className="text-sm text-purple-600 hover:text-purple-700"
+                >
+                  Forgot password?
+                </a>
+              </div>
+            )}
           </div>
 
           <button
