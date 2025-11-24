@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "status": "FOUND",
+    "id": "597e1979-41c8-4936-90b5-1f96caa91300"
+  },
+  "db": {
+    "status": "FOUND",
+    "id": "597e1979-41c8-4936-90b5-1f96caa91300",
+    "password_hash": "managed_by_supabase"
+  }
+}

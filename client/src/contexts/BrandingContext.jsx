@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import api from '@/api/client';
+import { useAuth } from './AuthContext';
 
 const BrandingContext = createContext();
 
 export function BrandingProvider({ children }) {
+    const { user, loading: authLoading } = useAuth();
     const [branding, setBranding] = useState({
         company_name: 'Triponic B2B',
         logo_url: '',
@@ -12,13 +14,18 @@ export function BrandingProvider({ children }) {
     });
 
     const fetchBranding = async () => {
+        if (authLoading || !user) {
+            setBranding(prev => ({ ...prev, isLoading: false }));
+            return;
+        }
+
         try {
             const res = await api.get('/settings');
             const data = res.data?.settings || {};
             setBranding({
                 company_name: data.company_name || 'Triponic B2B',
                 logo_url: data.logo_url || '',
-                plan: 'Pro Plan', // Assuming plan is static or fetched elsewhere for now
+                plan: 'Pro Plan',
                 isLoading: false
             });
         } catch (error) {
@@ -29,7 +36,7 @@ export function BrandingProvider({ children }) {
 
     useEffect(() => {
         fetchBranding();
-    }, []);
+    }, [user, authLoading]);
 
     const updateBranding = (newSettings) => {
         setBranding(prev => ({

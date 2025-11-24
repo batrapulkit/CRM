@@ -911,3 +911,73 @@ Please retry in 28.377955105s. [{"@type":"type.googleapis.com/google.rpc.Help","
 [2025-11-23T20:07:30.129Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
 [2025-11-23T20:07:30.369Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
 [2025-11-23T20:07:30.714Z] [CLIENTS] [GetClients] Success. Found 3 records.
+[2025-11-24T00:32:59.881Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:32:59.882Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:33:31.976Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:33:31.976Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:33:49.792Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T00:33:51.004Z] [AUTH] [Login] User has Supabase-managed password. Attempting Supabase Auth sign-in...
+[2025-11-24T00:33:51.526Z] [AUTH] [Login] Supabase Auth successful
+[2025-11-24T00:33:51.528Z] [AUTH] [Login Success] Token generated
+[2025-11-24T00:33:51.781Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:33:51.958Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:33:52.167Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T00:33:52.284Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:33:52.357Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:33:52.433Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T00:34:01.561Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:01.622Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:01.765Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T00:34:01.828Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:01.970Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:02.066Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T00:34:09.111Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:09.192Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:09.257Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T00:34:12.171Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:12.247Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:12.382Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T00:34:12.470Z] [CLIENTS] [GetClients] Request from User: 597e1979-41c8-4936-90b5-1f96caa91300, Agency: b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:12.531Z] [CLIENTS] [GetClients] Orphaned clients adopted to agency b5e0c38a-3e45-40ac-8a91-6b0ce9ce131c
+[2025-11-24T00:34:12.612Z] [CLIENTS] [GetClients] Success. Found 0 records.
+[2025-11-24T00:34:22.584Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:34:22.584Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:34:43.248Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:34:43.248Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:34:52.983Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T00:34:53.244Z] [AUTH] [Login] User has Supabase-managed password. Attempting Supabase Auth sign-in...
+[2025-11-24T00:34:53.593Z] [AUTH] [Login Failed] Supabase Auth failed: Invalid login credentials
+[2025-11-24T00:38:53.611Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:38:53.611Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:40:57.639Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:40:57.640Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:45:32.686Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:45:32.687Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:45:44.179Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:45:44.180Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:45:59.332Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:45:59.333Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:46:44.990Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:46:44.991Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:47:13.653Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:47:13.654Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:47:25.815Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:47:25.816Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:52:41.147Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:52:41.148Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:53:27.619Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:53:27.620Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:57:37.956Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:57:37.957Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T00:57:53.189Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T00:57:53.580Z] [AUTH] [Login] User has Supabase-managed password. Attempting Supabase Auth sign-in...
+[2025-11-24T00:57:53.765Z] [AUTH] [Login Failed] Supabase Auth failed: Invalid login credentials
+[2025-11-24T00:58:00.209Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T00:58:00.530Z] [AUTH] [Login] User has Supabase-managed password. Attempting Supabase Auth sign-in...
+[2025-11-24T00:58:00.677Z] [AUTH] [Login Failed] Supabase Auth failed: Invalid login credentials
+[2025-11-24T00:59:33.423Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T00:59:33.424Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:22:36.350Z] [SUPABASE_CONFIG] Key Role: service_role
+[2025-11-24T01:22:36.350Z] [SUPABASE_CONFIG] Key ISS: supabase
+[2025-11-24T01:23:01.042Z] [AUTH] [Login Attempt] Email: bugcrowd1103@gmail.com
+[2025-11-24T01:23:01.705Z] [AUTH] [Login] Bcrypt validation result: false

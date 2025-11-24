@@ -28,12 +28,19 @@ export default function Dashboard() {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
+      console.log('Fetching dashboard data...');
 
       const [clientsRes, itinerariesRes, clientStatsRes] = await Promise.all([
         api.get('/clients'),
         api.get('/itineraries?limit=5'),
         api.get('/clients/stats')
       ]);
+
+      console.log('Dashboard Data Received:', {
+        clients: clientsRes.data,
+        itineraries: itinerariesRes.data,
+        stats: clientStatsRes.data
+      });
 
       // Fix client list (use name, not full_name)
       setRecentClients(clientsRes.data.clients?.slice(0, 5) || []);
@@ -65,6 +72,7 @@ export default function Dashboard() {
 
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
+      // Optional: Set an error state to show in UI
     } finally {
       setLoading(false);
     }
