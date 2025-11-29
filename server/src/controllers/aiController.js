@@ -15,15 +15,10 @@ function logToFile(msg) {
 }
 
 /* simplified system prompt */
-const SYSTEM_PROMPT = `
-You are TONO, AI assistant for Triponic B2B.
-Detect intents and automate itinerary creation when asked like:
-"Create itinerary for <client> to <destination> for <X days>"
-"Add a dinner on day 2" (edit intent)
-"Create invoice for <client> for <amount>"
-
-Return JSON for automation results when creating or editing.
-`;
+const SYSTEM_PROMPT = `You are TONO, Triponic B2B's AI assistant. Be helpful, professional, and concise.
+Capabilities: Create itineraries, invoices, answer app questions.
+If the user asks to create something, I handle automation. You just acknowledge it friendly.
+IMPORTANT: Speak naturally. Do NOT return JSON.`;
 
 /* intent detection uses model to parse user message into fields */
 async function detectIntent(message) {
@@ -46,10 +41,18 @@ Return ONLY JSON:
   "invoice_amount": "number|null",
   "invoice_description": "string|null"
 }
+
+Note: Use "itinerary" for creating new trips.
 `;
 
   const result = await model.generateContent(prompt);
-  const raw = (await result.response).text().trim();
+  const response = await result.response;
+  const usage = response.usageMetadata;
+  if (usage) {
+    console.log(`Token Usage (Intent): P=${usage.promptTokenCount} R=${usage.candidatesTokenCount} T=${usage.totalTokenCount}`);
+    logToFile(`Token Usage (Intent): ${JSON.stringify(usage)}`);
+  }
+  const raw = response.text().trim();
   try {
     // Clean up markdown code blocks if present
     const cleanRaw = raw.replace(/```json/g, '').replace(/```/g, '').trim();
@@ -114,7 +117,13 @@ Return ONLY valid JSON:
 `;
 
   const result = await model.generateContent(prompt);
-  const raw = (await result.response).text();
+  const response = await result.response;
+  const usage = response.usageMetadata;
+  if (usage) {
+    console.log(`Token Usage (Itinerary Gen): P=${usage.promptTokenCount} R=${usage.candidatesTokenCount} T=${usage.totalTokenCount}`);
+    logToFile(`Token Usage (Itinerary Gen): ${JSON.stringify(usage)}`);
+  }
+  const raw = response.text();
   // parse attempt
   try {
     const cleanRaw = raw.replace(/```json/g, '').replace(/```/g, '').trim();
@@ -152,7 +161,13 @@ Return ONLY the modified valid JSON.
 `;
 
   const result = await model.generateContent(prompt);
-  const raw = (await result.response).text();
+  const response = await result.response;
+  const usage = response.usageMetadata;
+  if (usage) {
+    console.log(`Token Usage (Edit): P=${usage.promptTokenCount} R=${usage.candidatesTokenCount} T=${usage.totalTokenCount}`);
+    logToFile(`Token Usage (Edit): ${JSON.stringify(usage)}`);
+  }
+  const raw = response.text();
   try {
     const cleanRaw = raw.replace(/```json/g, '').replace(/```/g, '').trim();
     return JSON.parse(cleanRaw);
@@ -171,8 +186,11 @@ export const chatWithAI = async (req, res) => {
     const intentData = await detectIntent(message);
     const { intent, client_name, destination, duration, edit_instruction, invoice_amount, invoice_description } = intentData;
 
+    // Normalize intent
+    const normalizedIntent = (intent === 'create_itinerary' || intent === 'plan_trip') ? 'itinerary' : intent;
+
     // --- CREATE ITINERARY ---
-    if (intent === 'itinerary' && client_name) {
+    if (normalizedIntent === 'itinerary' && client_name) {
       // find client with partial match
       const { data: clients } = await supabase
         .from('clients')
@@ -181,22 +199,49 @@ export const chatWithAI = async (req, res) => {
         .eq('agency_id', req.user.agency_id);
 
       if (!clients || clients.length === 0) {
-        return res.json({ success: true, response: `I couldn't find client similar to "${client_name}".` });
+        return res.json({ success: true, response: `I couldn't find a client named "${client_name}". Please check the name or create the client first.` });
       }
       const client = clients[0];
 
       if (!destination || !duration) {
-        return res.json({ success: true, response: 'Please provide both destination and duration to create the itinerary.' });
+        return res.json({ success: true, response: 'Please provide both destination and duration to create the itinerary. For example: "Create a 5 day trip to Paris for John Doe"' });
       }
 
-      const aiJson = await createDayWiseItinerary({ destination, duration, interests: client.interests, travelers: 1, budget: client.budget_range, client });
+      let aiJson;
+      let aiText;
+
+      // 1. Check if we already have an itinerary for this destination in this agency
+      const { data: existingItineraries } = await supabase
+        .from('itineraries')
+        .select('*')
+        .ilike('destination', destination) // exact or case-insensitive match
+        .eq('agency_id', req.user.agency_id)
+        .order('created_at', { ascending: false })
+        .limit(1);
+
+      if (existingItineraries && existingItineraries.length > 0) {
+        // REUSE EXISTING
+        const existing = existingItineraries[0];
+        console.log(`Found existing itinerary for ${destination}, reusing ID: ${existing.id}`);
+        aiJson = existing.ai_generated_json;
+        aiText = existing.ai_generated_content;
+      } else {
+        // GENERATE NEW
+        try {
+          aiJson = await createDayWiseItinerary({ destination, duration, interests: client.interests, travelers: 1, budget: client.budget_range, client });
+          aiText = aiJson.content || (aiJson.detailedPlan && aiJson.detailedPlan.description) || "Itinerary created.";
+        } catch (genError) {
+          console.error("AI Generation Error:", genError);
+          return res.json({ success: true, response: "I'm sorry, I encountered an error while generating the itinerary plan. Please try again." });
+        }
+      }
 
       // Map the new structure to the DB fields
       // aiJson has { content, detailedPlan: { ... } }
       // We store the whole thing in ai_generated_json
       // And use content or detailedPlan.description for ai_generated_content
 
-      const aiText = aiJson.content || (aiJson.detailedPlan && aiJson.detailedPlan.description) || "Itinerary created.";
+      // aiText is already set above
 
       // save to DB
       const { data: saved, error } = await supabase
@@ -275,26 +320,49 @@ export const chatWithAI = async (req, res) => {
     // fallback: simple chat mode (short)
     const model = getModel();
     let historyString = '';
-    (conversation_history || []).forEach(m => historyString += `${m.role.toUpperCase()}: ${m.content}\n`);
+    // Enforce server-side limit: last 6 messages max
+    const recentHistory = (conversation_history || []).slice(-6);
+    recentHistory.forEach(m => historyString += `${m.role.toUpperCase()}: ${m.content}\n`);
+
     const prompt = SYSTEM_PROMPT + '\n\n' + historyString + `USER: ${message}\nTONO:`;
-    const result = await model.generateContent(prompt);
-    const reply = (await result.response).text();
+
+    const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: {
+        maxOutputTokens: 150, // Limit response length for speed/cost
+        temperature: 0.7,
+      }
+    });
+    const response = await result.response;
+    const usage = response.usageMetadata;
+    if (usage) {
+      console.log(`Token Usage (Chat): P=${usage.promptTokenCount} R=${usage.candidatesTokenCount} T=${usage.totalTokenCount}`);
+      logToFile(`Token Usage (Chat): ${JSON.stringify(usage)}`);
+    }
+    const reply = response.text();
 
     // save conversation (best-effort)
     try {
       await supabase.from('ai_conversations').insert({
         user_id: req.user.id,
         agency_id: req.user.agency_id,
-        user_message: message,
         ai_response: reply,
         created_at: new Date().toISOString()
       });
     } catch (dberr) { console.warn('AI conv save failed', dberr); }
 
+    // Include usage in response if available
+    // const usage = (await result.response).usageMetadata; 
+    // We log usage server-side but do NOT send it to client/agency
     return res.json({ success: true, response: reply, timestamp: new Date().toISOString() });
   } catch (err) {
     console.error('AI controller error:', err);
     logToFile(`AI controller error: ${err.message}\n${err.stack}`);
+
+    if (err.message && err.message.includes('429')) {
+      return res.json({ success: true, response: "I'm currently experiencing high traffic (Quota Exceeded). Please try again in a minute." });
+    }
+
     return res.status(500).json({ error: 'AI processing failed', details: err.message });
   }
 };

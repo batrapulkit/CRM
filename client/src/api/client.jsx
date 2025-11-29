@@ -57,6 +57,12 @@ api.entities = {
     update: (id, data) => api.patch(`/itineraries/${id}`, data).then(res => res.data.itinerary),
     delete: (id) => api.delete(`/itineraries/${id}`),
   },
+  Supplier: {
+    list: (sort, limit) => api.get(`/suppliers${limit ? `?limit=${limit}` : ''}${sort ? `&sort=${sort}` : ''}`).then(res => res.data.suppliers || []),
+    create: (data) => api.post('/suppliers', data).then(res => res.data.supplier),
+    update: (id, data) => api.patch(`/suppliers/${id}`, data).then(res => res.data.supplier),
+    delete: (id) => api.delete(`/suppliers/${id}`),
+  },
 };
 
 export default api;

@@ -9,10 +9,12 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
     User, Mail, Phone, MapPin, Building, Calendar,
-    FileText, DollarSign, ArrowLeft, Plus, Download, Eye
+    FileText, DollarSign, ArrowLeft, Plus, Download, Eye, Trash2
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { downloadInvoicePDF, generateInvoicePDF } from '../utils/pdfGenerator';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export default function ClientDetails() {
     const { id } = useParams();
@@ -22,6 +24,29 @@ export default function ClientDetails() {
     const [invoices, setInvoices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('overview');
+    const queryClient = useQueryClient();
+
+    const deleteItineraryMutation = useMutation({
+        mutationFn: (id) => api.delete(`/itineraries/${id}`),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['itineraries'] });
+            // Also update local state
+            setItineraries(prev => prev.filter(i => i.id !== deleteItineraryMutation.variables));
+            toast.success('Itinerary deleted successfully');
+            fetchClientData(); // Refresh data
+        },
+        onError: (error) => {
+            console.error('Delete error:', error);
+            toast.error('Failed to delete itinerary');
+        }
+    });
+
+    const handleDeleteItinerary = (id, e) => {
+        e.stopPropagation();
+        if (window.confirm('Are you sure you want to delete this itinerary? This action cannot be undone.')) {
+            deleteItineraryMutation.mutate(id);
+        }
+    };
 
     useEffect(() => {
         fetchClientData();
@@ -185,7 +210,17 @@ export default function ClientDetails() {
                                                     <p className="text-sm text-slate-500">{itinerary.duration} Days • {format(new Date(itinerary.created_at), 'MMM d, yyyy')}</p>
                                                 </div>
                                             </div>
-                                            <Badge variant="outline" className="capitalize">{itinerary.status}</Badge>
+                                            <div className="flex items-center gap-2">
+                                                <Badge variant="outline" className="capitalize">{itinerary.status}</Badge>
+                                                <Button
+                                                    size="sm"
+                                                    variant="ghost"
+                                                    className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                                                    onClick={(e) => handleDeleteItinerary(itinerary.id, e)}
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </Button>
+                                            </div>
                                         </CardContent>
                                     </Card>
                                 ))
@@ -220,8 +255,8 @@ export default function ClientDetails() {
                                                 <div className="text-right">
                                                     <p className="font-bold text-slate-900">${parseFloat(invoice.total).toLocaleString()}</p>
                                                     <Badge variant="outline" className={`capitalize ${invoice.status === 'paid' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                                                            invoice.status === 'sent' ? 'bg-blue-50 text-blue-700 border-blue-200' :
-                                                                'bg-slate-100 text-slate-700'
+                                                        invoice.status === 'sent' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                                                            'bg-slate-100 text-slate-700'
                                                         }`}>
                                                         {invoice.status}
                                                     </Badge>

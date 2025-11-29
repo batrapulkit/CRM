@@ -159,7 +159,7 @@ export default function Layout({ children }) {
           <TriponicWatermark />
 
           {/* AI Assistant Modal */}
-          {showAI && <AIAssistant onClose={() => setShowAI(false)} />}
+          <AIAssistant isOpen={showAI} onToggle={setShowAI} />
         </main>
       </div>
     </SidebarProvider>

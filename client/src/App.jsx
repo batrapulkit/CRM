@@ -15,6 +15,9 @@ import Settings from './pages/Settings';
 import CRM from './pages/CRM';
 import Layout from './components/Layout';
 import ClientDetails from './pages/ClientDetails';
+import Bookings from './pages/Bookings';
+import Suppliers from './pages/Suppliers';
+import Landing from './pages/Landing';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -71,18 +74,23 @@ function AppRoutes() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/clients" element={<Clients />} />
                 <Route path="/clients/:id" element={<ClientDetails />} />
+
                 <Route path="/itineraries" element={<Itineraries />} />
+                <Route path="/bookings" element={<Bookings />} />
+                <Route path="/suppliers" element={<Suppliers />} />
                 <Route path="/quotes" element={<Quotes />} />
                 <Route path="/finance" element={<Finance />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/crm" element={<CRM />} />
-                <Route path="/" element={<Navigate to="/dashboard" />} />
                 <Route path="/test" element={<TestConnection />} />
               </Routes>
             </Layout>
           </ProtectedRoute>
         }
       />
+
+      {/* Public Landing Page */}
+      <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Landing />} />
     </Routes>
   );
 }

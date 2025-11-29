@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import api from "@/api/client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,7 +14,8 @@ import {
   FileText,
   Edit,
   Sparkles,
-  Eye
+  Eye,
+  Trash2
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
@@ -31,6 +35,26 @@ const statusColors = {
 export default function ItineraryList({ itineraries, isLoading }) {
   const [selectedItinerary, setSelectedItinerary] = useState(null);
   const [editingItinerary, setEditingItinerary] = useState(null);
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => api.delete(`/itineraries/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['itineraries'] });
+      toast.success('Itinerary deleted successfully');
+    },
+    onError: (error) => {
+      console.error('Delete error:', error);
+      toast.error('Failed to delete itinerary');
+    }
+  });
+
+  const handleDelete = (id, e) => {
+    e.stopPropagation();
+    if (window.confirm('Are you sure you want to delete this itinerary? This action cannot be undone.')) {
+      deleteMutation.mutate(id);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -139,6 +163,14 @@ export default function ItineraryList({ itineraries, isLoading }) {
                       onClick={() => setEditingItinerary(itinerary)}
                     >
                       <Edit className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                      onClick={(e) => handleDelete(itinerary.id, e)}
+                    >
+                      <Trash2 className="w-4 h-4" />
                     </Button>
                     <Button
                       size="sm"

@@ -14,6 +14,7 @@ import clientsRoutes from './routes/clients.js';
 import invoicesRoutes from './routes/invoices.js';
 import leadsRoutes from './routes/leads.js';
 import settingsRoutes from './routes/settings.js';
+import suppliersRoutes from './routes/suppliers.js';
 
 const app = express();
 
@@ -67,6 +68,7 @@ app.use("/api/itineraries", itinerariesRoutes);
 app.use("/api/invoices", invoicesRoutes);
 app.use("/api/leads", leadsRoutes);
 app.use("/api/settings", settingsRoutes);
+app.use("/api/suppliers", suppliersRoutes);
 app.use("/api/ai", aiRoutes);
 
 // -----------------------------------------------------

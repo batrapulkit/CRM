@@ -99,24 +99,24 @@ export default function ItineraryDetailsDialog({ itinerary, open, onClose, onEdi
                                 </Select>
                             </DialogTitle>
                         </div>
-                        <DialogDescription className="flex flex-wrap gap-6 pt-4 text-sm">
-                            <div className="flex items-center gap-2 text-slate-600">
+                        <DialogDescription className="flex flex-wrap gap-6 pt-4 text-sm" as="div">
+                            <span className="flex items-center gap-2 text-slate-600">
                                 <MapPin className="w-4 h-4 text-purple-600" />
                                 {itinerary.destination}
-                            </div>
-                            <div className="flex items-center gap-2 text-slate-600">
+                            </span>
+                            <span className="flex items-center gap-2 text-slate-600">
                                 <Calendar className="w-4 h-4 text-purple-600" />
                                 {itinerary.duration} Days
-                            </div>
-                            <div className="flex items-center gap-2 text-slate-600">
+                            </span>
+                            <span className="flex items-center gap-2 text-slate-600">
                                 <Users className="w-4 h-4 text-purple-600" />
                                 {itinerary.travelers} Travelers
-                            </div>
+                            </span>
                             {itinerary.budget && (
-                                <div className="flex items-center gap-2 text-slate-600">
+                                <span className="flex items-center gap-2 text-slate-600">
                                     <DollarSign className="w-4 h-4 text-purple-600" />
                                     {itinerary.budget} Budget
-                                </div>
+                                </span>
                             )}
                         </DialogDescription>
                     </DialogHeader>
