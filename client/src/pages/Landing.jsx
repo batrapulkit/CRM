@@ -124,7 +124,6 @@ export default function Landing() {
                         initial={{ opacity: 0, rotateX: 20, y: 100 }}
                         animate={{ opacity: 1, rotateX: 0, y: 0 }}
                         transition={{ duration: 1, delay: 0.2, type: "spring" }}
-                        transition={{ duration: 1, delay: 0.2, type: "spring" }}
                         className="relative mx-auto max-w-6xl"
                         style={{ perspective: "1000px" }}
                     >

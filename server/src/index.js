@@ -23,7 +23,10 @@ const app = express();
 // -----------------------------------------------------
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,         // http://localhost:5173
+    origin: [
+      process.env.CLIENT_URL,              // http://localhost:5173
+      'https://partners.triponic.com'      // Production frontend
+    ],
     credentials: true,                      // allow cookies / auth headers
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
