@@ -55,11 +55,15 @@ export default function Landing() {
                         </div>
 
                         <div className="hidden md:flex items-center gap-8">
-                            {['Features', 'Solutions', 'Pricing'].map((item) => (
-                                <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
-                                    {item}
-                                </a>
-                            ))}
+                            <a href="#features" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                                Features
+                            </a>
+                            <a href="#solutions" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                                Solutions
+                            </a>
+                            <Link to="/pricing" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                                Pricing
+                            </Link>
                         </div>
 
                         <div className="flex items-center gap-4">

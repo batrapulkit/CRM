@@ -18,6 +18,7 @@ import ClientDetails from './pages/ClientDetails';
 import Bookings from './pages/Bookings';
 import Suppliers from './pages/Suppliers';
 import Landing from './pages/Landing';
+import Pricing from './pages/Pricing';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -91,6 +92,9 @@ function AppRoutes() {
 
       {/* Public Landing Page */}
       <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Landing />} />
+
+      {/* Public Pricing Page */}
+      <Route path="/pricing" element={<Pricing />} />
     </Routes>
   );
 }
