@@ -26,5 +26,5 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           port: 21
           protocol: ftps
-          local-dir: client/dist
-          server-dir: public_html/partners
+          local-dir: client/dist/
+          server-dir: public_html/partners/
