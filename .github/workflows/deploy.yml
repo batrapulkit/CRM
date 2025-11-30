@@ -19,12 +19,12 @@ jobs:
         run: npm run build --prefix client
 
       - name: Deploy to Hostinger FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@4.3.1
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          protocol: ftps
           port: 21
+          protocol: ftps
           local-dir: client/dist
           server-dir: public_html/partners
